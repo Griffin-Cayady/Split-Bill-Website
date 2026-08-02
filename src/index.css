@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------- *
+ * SplitEasy design tokens — warm cream + friendly rounded "modern receipt"
+ * aesthetic. Semantic vars flip in .dark / .light or by system preference;
+ * Tailwind utilities (bg-paper, text-ink, font-display, ...) read from the
+ * @theme block below.
+ * ---------------------------------------------------------------------- */
+
+/*
+ * Theme resolution is done once in JS (see index.html inline script +
+ * useTheme) which always lands on an explicit .light or .dark class on
+ * <html> — including for "system", resolved via matchMedia. That keeps
+ * these CSS vars and any Tailwind `dark:` utility in agreement, with no
+ * separate prefers-color-scheme branch to fall out of sync.
+ */
+:root,
+.light {
+  --paper: #f7f1e6;
+  --paper-raised: #fffdf7;
+  --ink: #33291c;
+  --ink-soft: #8a7b66;
+  --ink-faint: #b7a98f;
+  --border: #decfb4;
+  --paper-hover: #f3e7d2;
+  --accent: #c6402c;
+  --accent-hover: #a33322;
+  --accent-ink: #ffffff;
+  --accent-soft: #fbe9e4;
+  --teal: #2e7d4f;
+  --teal-soft: #e4f0e8;
+  --teal-border: #bfd9c8;
+  --amber: #b26a00;
+  --amber-soft: #fcf0dc;
+  --shadow-color: 51 41 28;
+  --grain-opacity: 0.03;
+}
+
+.dark {
+  --paper: #221b12;
+  --paper-raised: #2e2517;
+  --ink: #f5ede0;
+  --ink-soft: #b8a88c;
+  --ink-faint: #7a6b52;
+  --border: #453926;
+  --paper-hover: #3a2f1e;
+  --accent: #ff7a5a;
+  --accent-hover: #ff9678;
+  --accent-ink: #221b12;
+  --accent-soft: #4a2a22;
+  --teal: #6fbe8f;
+  --teal-soft: #1e3327;
+  --teal-border: #2f4c3a;
+  --amber: #e0a030;
+  --amber-soft: #3d2e10;
+  --shadow-color: 0 0 0;
+  --grain-opacity: 0.05;
+}
+
+@theme {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-border: var(--border);
+  --color-paper-hover: var(--paper-hover);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-teal: var(--teal);
+  --color-teal-soft: var(--teal-soft);
+  --color-teal-border: var(--teal-border);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+
+  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Subtle paper grain overlay, never intercepts pointer events. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  outline-offset: 1px;
+}
+
+/* Tabular figures wherever money is displayed. */
+.tabular-money {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Zigzag torn-paper edge, used on the receipt / share card. */
+.torn-edge-bottom {
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 94%,
+    96% 100%,
+    92% 94%,
+    88% 100%,
+    84% 94%,
+    80% 100%,
+    76% 94%,
+    72% 100%,
+    68% 94%,
+    64% 100%,
+    60% 94%,
+    56% 100%,
+    52% 94%,
+    48% 100%,
+    44% 94%,
+    40% 100%,
+    36% 94%,
+    32% 100%,
+    28% 94%,
+    24% 100%,
+    20% 94%,
+    16% 100%,
+    12% 94%,
+    8% 100%,
+    4% 94%,
+    0% 100%
+  );
+}
+
+@media (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-step-in {
+  animation: step-in 220ms ease-out;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 220ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-step-in,
+  .animate-pop-in {
+    animation: none;
+  }
+}
