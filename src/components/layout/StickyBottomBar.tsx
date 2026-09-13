@@ -1,8 +1,10 @@
 import { Button } from "../ui/Button";
 import { useStepGate } from "../../hooks/useStepGate";
+import { useBillStore } from "../../store/billStore";
 
 export function StickyBottomBar() {
-  const { isFirst, isLast, relevantBlock, goNext, goBack, hint } = useStepGate();
+  const bill = useBillStore((s) => s.bill);
+  const { isFirst, isLast, relevantBlock, goNext, goBack, hint } = useStepGate(bill);
 
   if (isLast) return null;
 

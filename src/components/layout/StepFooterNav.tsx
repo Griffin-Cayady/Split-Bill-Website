@@ -1,9 +1,11 @@
 import { Button } from "../ui/Button";
 import { useStepGate } from "../../hooks/useStepGate";
+import { useBillStore } from "../../store/billStore";
 
 /** Inline Back/hint/Next controls shown at the end of every step's content, on every viewport. */
 export function StepFooterNav() {
-  const { isFirst, isLast, relevantBlock, goNext, goBack, hint } = useStepGate();
+  const bill = useBillStore((s) => s.bill);
+  const { isFirst, isLast, relevantBlock, goNext, goBack, hint } = useStepGate(bill);
 
   if (isLast) return null;
 

@@ -1,7 +1,6 @@
-import { useBillStore } from "../store/billStore";
 import { STEPS, useUIStore, type Step } from "../store/uiStore";
 import { validateBill } from "../lib/calc";
-import type { BillValidationIssue } from "../lib/types";
+import type { Bill, BillValidationIssue } from "../lib/types";
 
 function issuesForStep(step: Step, issues: BillValidationIssue[]): BillValidationIssue[] {
   if (step === "people") return issues.filter((i) => !i.itemId);
@@ -13,9 +12,8 @@ function stepHasBlockingIssues(step: Step, issues: BillValidationIssue[]): boole
   return issuesForStep(step, issues).some((i) => i.level === "error");
 }
 
-/** Step-navigation gating: blocking state for "Next" and a human hint for what's missing. */
-export function useStepGate() {
-  const bill = useBillStore((s) => s.bill);
+/** Step-navigation gating: blocking state for "Next" and a human hint for what's missing. Platform-neutral — caller supplies the bill. */
+export function useStepGate(bill: Bill) {
   const step = useUIStore((s) => s.step);
   const goNext = useUIStore((s) => s.goNext);
   const goBack = useUIStore((s) => s.goBack);
