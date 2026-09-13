@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Token values copied from ../src/index.css — keep in sync. */
+@layer base {
+  :root {
+    --paper: #f7f1e6;
+    --paper-raised: #fffdf7;
+    --ink: #33291c;
+    --ink-soft: #8a7b66;
+    --ink-faint: #b7a98f;
+    --border: #decfb4;
+    --paper-hover: #f3e7d2;
+    --accent: #c6402c;
+    --accent-hover: #a33322;
+    --accent-ink: #ffffff;
+    --accent-soft: #fbe9e4;
+    --teal: #2e7d4f;
+    --teal-soft: #e4f0e8;
+    --teal-border: #bfd9c8;
+    --amber: #b26a00;
+    --amber-soft: #fcf0dc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #221b12;
+      --paper-raised: #2e2517;
+      --ink: #f5ede0;
+      --ink-soft: #b8a88c;
+      --ink-faint: #7a6b52;
+      --border: #453926;
+      --paper-hover: #3a2f1e;
+      --accent: #ff7a5a;
+      --accent-hover: #ff9678;
+      --accent-ink: #221b12;
+      --accent-soft: #4a2a22;
+      --teal: #6fbe8f;
+      --teal-soft: #1e3327;
+      --teal-border: #2f4c3a;
+      --amber: #e0a030;
+      --amber-soft: #3d2e10;
+    }
+  }
+}
