@@ -31,7 +31,9 @@ export function encodeBillToHash(bill: Bill): string {
   return `#b=${compressed}`;
 }
 
-export function buildShareUrl(bill: Bill): string {
+/** Absolute share URL. Pass baseUrl explicitly (mobile); omit to use the current page (web). */
+export function buildShareUrl(bill: Bill, baseUrl?: string): string {
+  if (baseUrl) return `${baseUrl}${encodeBillToHash(bill)}`;
   if (typeof window === "undefined") return "";
   return `${window.location.origin}${window.location.pathname}${encodeBillToHash(bill)}`;
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { compressToEncodedURIComponent } from "lz-string";
-import { decodeBillFromHash, encodeBillToHash, SHARE_URL_WARN_LENGTH } from "./link";
+import { buildShareUrl, decodeBillFromHash, encodeBillToHash, SHARE_URL_WARN_LENGTH } from "./link";
 import type { Bill } from "../types";
 
 function sampleBill(overrides: Partial<Bill> = {}): Bill {
@@ -75,5 +75,12 @@ describe("decodeBillFromHash error handling", () => {
     const result = decodeBillFromHash(hash);
     expect(result.ok).toBe(false);
     if (!result.ok) expect(result.error).toBe("invalid-schema");
+  });
+});
+
+describe("buildShareUrl", () => {
+  it("uses an explicit base URL when given", () => {
+    const url = buildShareUrl(sampleBill(), "https://example.com/app");
+    expect(url.startsWith("https://example.com/app#b=")).toBe(true);
   });
 });

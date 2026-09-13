@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatMoney, parseMoneyInput, presetForSymbol } from "./currency";
+import { defaultCurrency, formatMoney, parseMoneyInput, presetForSymbol } from "./currency";
 
 describe("formatMoney", () => {
   it("formats zero-decimal currencies (e.g. IDR) without cents", () => {
@@ -32,5 +32,15 @@ describe("parseMoneyInput", () => {
 describe("presetForSymbol", () => {
   it("finds a known preset", () => {
     expect(presetForSymbol("Rp").code).toBe("IDR");
+  });
+});
+
+describe("defaultCurrency", () => {
+  it("picks the preset matching an explicit locale", () => {
+    expect(defaultCurrency("id-ID")).toEqual({ symbol: "Rp", roundingUnit: 1 });
+  });
+
+  it("falls back to USD for an unknown locale", () => {
+    expect(defaultCurrency("xx-XX")).toEqual({ symbol: "$", roundingUnit: 1 });
   });
 });

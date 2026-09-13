@@ -38,9 +38,10 @@ export function presetForSymbol(symbol: string): CurrencyPreset {
   return CURRENCY_PRESETS.find((c) => c.symbol === symbol) ?? { ...FALLBACK_PRESET, symbol };
 }
 
-export function defaultCurrency(): Currency {
-  const locale = typeof navigator !== "undefined" && navigator.language ? navigator.language : "en-US";
-  const lang = locale.split("-")[0]?.toLowerCase();
+/** Locale-aware default; pass a BCP-47 tag explicitly (mobile), or omit to read navigator.language (web). */
+export function defaultCurrency(locale?: string): Currency {
+  const resolved = locale ?? (typeof navigator !== "undefined" && navigator.language ? navigator.language : "en-US");
+  const lang = resolved.split("-")[0]?.toLowerCase();
   const match = CURRENCY_PRESETS.find((c) => c.locale.split("-")[0]?.toLowerCase() === lang);
   const preset = match ?? FALLBACK_PRESET;
   return { symbol: preset.symbol, roundingUnit: preset.defaultRoundingUnit };
