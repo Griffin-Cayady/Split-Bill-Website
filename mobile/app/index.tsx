@@ -5,12 +5,13 @@ import { Header } from "@/components/layout/Header";
 import { BillSettingsBar } from "@/components/layout/BillSettingsBar";
 import { StepNav } from "@/components/layout/StepNav";
 import { StickyBottomBar, BOTTOM_BAR_HEIGHT } from "@/components/layout/StickyBottomBar";
-import { StepPlaceholder } from "@/components/layout/StepPlaceholder";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { ToastViewport } from "@/components/ui/ToastViewport";
 import { PeopleStep } from "@/features/people/PeopleStep";
 import { ItemsStep } from "@/features/items/ItemsStep";
 import { UndoSnackbar } from "@/features/items/UndoSnackbar";
+import { ChargesStep } from "@/features/charges/ChargesStep";
+import { ResultsStep } from "@/features/results/ResultsStep";
 import { useBillStore } from "@/store/billStore";
 import { session } from "@/session";
 import { STEPS, useUIStore } from "@shared/store/uiStore";
@@ -52,9 +53,9 @@ export default function Index() {
     ) : step === "items" ? (
       <ItemsStep />
     ) : step === "charges" ? (
-      <StepPlaceholder name="Extras" />
+      <ChargesStep />
     ) : (
-      <StepPlaceholder name="Totals" />
+      <ResultsStep />
     );
 
   const bottomPad = step === "results" ? 24 : BOTTOM_BAR_HEIGHT + 40;
