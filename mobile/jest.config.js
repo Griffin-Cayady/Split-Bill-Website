@@ -11,6 +11,13 @@ module.exports = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^@shared/(.*)$": "<rootDir>/../src/$1",
+    // Shared files under ../src would otherwise resolve these from the
+    // website's node_modules (a second React instance → hooks crash).
+    "^react$": "<rootDir>/node_modules/react",
+    "^react/(.*)$": "<rootDir>/node_modules/react/$1",
+    "^zustand$": "<rootDir>/node_modules/zustand",
+    "^zustand/(.*)$": "<rootDir>/node_modules/zustand/$1",
+    "^lz-string$": "<rootDir>/node_modules/lz-string",
   },
   transformIgnorePatterns: [extended, ...rest],
 };
