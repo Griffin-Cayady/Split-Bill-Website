@@ -40,7 +40,13 @@ export function ReceiptPreviewModal({ open, onClose, bill, result }: Props) {
     try {
       const uri = await captureReceipt(cardRef);
       const outcome = await saveImage(uri);
-      pushToast(outcome === "done" ? "Saved to Photos ✓" : "Photos permission was denied.");
+      if (outcome === "done") pushToast("Saved to Photos ✓");
+      else if (outcome === "denied") pushToast("Photos permission was denied.");
+      else {
+        // No photo-library module in this runtime — the share sheet offers "Save Image".
+        pushToast("Use Share image, then choose Save Image.");
+        await shareImage(uri, bill.title);
+      }
     } catch {
       pushToast("Couldn't save the image — try again.");
     } finally {
