@@ -19,3 +19,12 @@ jest.mock("react-native-safe-area-context", () => {
     useSafeAreaFrame: () => ({ x: 0, y: 0, width: 390, height: 844 }),
   };
 });
+
+// Native sharing modules are exercised on-device; keep Jest hermetic.
+jest.mock("react-native-view-shot", () => ({ captureRef: jest.fn(async () => "file:///tmp/receipt.png") }));
+jest.mock("expo-sharing", () => ({ isAvailableAsync: jest.fn(async () => true), shareAsync: jest.fn(async () => {}) }));
+jest.mock("expo-media-library", () => ({
+  requestPermissionsAsync: jest.fn(async () => ({ granted: true })),
+  saveToLibraryAsync: jest.fn(async () => {}),
+}));
+jest.mock("expo-clipboard", () => ({ setStringAsync: jest.fn(async () => true) }));
