@@ -73,3 +73,9 @@ export const ShareIcon = (p: IconProps) => (
     <Path d="M8.6 13.5 15.4 17.5M15.4 6.5 8.6 10.5" />
   </Base>
 );
+export const AlertIcon = (p: IconProps) => (
+  <Base {...p}>
+    <Path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
+    <Path d="M12 9v4M12 17h.01" />
+  </Base>
+);
