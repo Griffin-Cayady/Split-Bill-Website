@@ -9,6 +9,8 @@ import { StepPlaceholder } from "@/components/layout/StepPlaceholder";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { ToastViewport } from "@/components/ui/ToastViewport";
 import { PeopleStep } from "@/features/people/PeopleStep";
+import { ItemsStep } from "@/features/items/ItemsStep";
+import { UndoSnackbar } from "@/features/items/UndoSnackbar";
 import { useBillStore } from "@/store/billStore";
 import { session } from "@/session";
 import { STEPS, useUIStore } from "@shared/store/uiStore";
@@ -48,7 +50,7 @@ export default function Index() {
     step === "people" ? (
       <PeopleStep />
     ) : step === "items" ? (
-      <StepPlaceholder name="Items" />
+      <ItemsStep />
     ) : step === "charges" ? (
       <StepPlaceholder name="Extras" />
     ) : (
@@ -69,6 +71,7 @@ export default function Index() {
       </KeyboardAvoidingView>
       <StickyBottomBar />
       <ToastViewport bottomOffset={step === "results" ? 0 : BOTTOM_BAR_HEIGHT} />
+      <UndoSnackbar />
       <ConfirmDialog
         open={showResume}
         title="Resume your previous bill?"
