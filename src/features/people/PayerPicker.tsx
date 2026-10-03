@@ -38,7 +38,7 @@ export function PayerPicker({ people, payerId }: { people: Person[]; payerId: st
               data-person={p.id}
               onClick={() => setPayer(p.id)}
               className={clsx(
-                "flex min-h-11 items-center gap-2 rounded-full border-[1.5px] py-1 pr-4 pl-1 text-secondary font-semibold transition-[color,background-color,transform] active:scale-[0.97]",
+                "flex min-h-11 items-center gap-2 rounded-full border py-1 pr-4 pl-1 text-secondary font-semibold transition-[color,background-color,transform] active:scale-[0.97]",
                 selected ? "border-ink bg-ink text-paper" : "border-border bg-paper-raised text-ink hover:bg-paper-hover",
               )}
             >

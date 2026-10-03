@@ -11,7 +11,7 @@ export function StepFooterNav() {
   if (isLast) return null;
 
   return (
-    <div className="mt-7 flex flex-wrap items-center gap-3 border-t-[1.5px] border-dashed border-border pt-5">
+    <div className="mt-7 flex flex-wrap items-center gap-3 border-t border-border pt-5">
       {!isFirst ? (
         <Button variant="secondary" onClick={goBack}>
           ← Back

@@ -34,12 +34,12 @@ export function PersonResultCard({ person, result, currency, defaultOpen, payer,
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-paper-raised shadow-card">
+    <div className="rounded-xl border border-border bg-paper-raised shadow-card">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex min-h-14 w-full items-center gap-3.5 rounded-2xl px-4 py-4 text-left transition-colors hover:bg-paper-hover/60"
+        className="flex min-h-14 w-full items-center gap-3.5 rounded-xl px-4 py-4 text-left transition-colors hover:bg-paper-hover/60"
       >
         <Avatar name={person.name} color={person.color} />
         <span className="flex min-w-0 flex-1 flex-col">
@@ -71,7 +71,7 @@ export function PersonResultCard({ person, result, currency, defaultOpen, payer,
       </button>
 
       {open && (
-        <div className="border-t-[1.5px] border-dashed border-border px-4.5 py-3.5 text-secondary">
+        <div className="border-t border-border px-4.5 py-3.5 text-secondary">
           {result.itemLines.length > 0 && (
             <ul className="space-y-1.5">
               {result.itemLines.map((line, i) => (
@@ -102,7 +102,7 @@ export function PersonResultCard({ person, result, currency, defaultOpen, payer,
               type="button"
               onClick={() => onTogglePaid(person.id)}
               className={clsx(
-                "mt-3.5 min-h-11 rounded-xl border-[1.5px] px-4 text-sm font-semibold transition-[color,background-color,transform] active:scale-[0.97]",
+                "mt-3.5 min-h-11 rounded-lg border px-4 text-sm font-semibold transition-[color,background-color,transform] active:scale-[0.97]",
                 settled ? "border-teal-border bg-teal-soft text-teal" : "border-border bg-transparent text-ink hover:bg-paper-hover",
               )}
             >

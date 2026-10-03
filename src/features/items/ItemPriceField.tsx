@@ -1,3 +1,4 @@
+import { fieldClass } from "../../components/ui/field";
 import clsx from "clsx";
 import { CommitInput } from "../../components/ui/CommitInput";
 import { useBillStore } from "../../store/billStore";
@@ -23,7 +24,7 @@ export function ItemPriceField({ item, className }: { item: Item; className?: st
         value={display}
         onCommit={commitPrice}
         aria-label="Price"
-        className="h-12 min-w-0 flex-1 rounded-xl border-[1.5px] border-field-border bg-paper px-2.5 text-right font-mono text-body-lg tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
+        className={clsx(fieldClass, "h-12 min-w-0 flex-1 px-2.5 text-right font-mono text-body-lg tabular-nums")}
       />
     </div>
   );

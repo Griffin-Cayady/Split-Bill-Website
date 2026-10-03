@@ -23,7 +23,7 @@ export function ItemsStep() {
       </div>
 
       {items.length === 0 ? (
-        <div className="rounded-2xl border-[1.5px] border-dashed border-border px-6 py-8 text-center">
+        <div className="rounded-xl border border-border px-6 py-8 text-center">
           <p className="text-base text-ink-soft">No items yet — add the first one below.</p>
         </div>
       ) : (
@@ -37,7 +37,7 @@ export function ItemsStep() {
       <button
         type="button"
         onClick={() => addItem()}
-        className="min-h-[52px] w-full rounded-2xl border-[1.5px] border-dashed border-field-border px-6 text-base font-semibold text-ink transition-[background-color,border-color,transform] hover:border-ink hover:bg-paper-raised active:scale-[0.99]"
+        className="min-h-[52px] w-full rounded-xl border border-field-border px-6 text-base font-semibold text-ink transition-[background-color,border-color,transform] hover:border-ink hover:bg-paper-raised active:scale-[0.99]"
       >
         <PlusIcon width={18} height={18} className="mr-1.5 inline align-text-bottom" />
         {items.length === 0 ? "Add an item" : "Add another item"}

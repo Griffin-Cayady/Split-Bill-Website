@@ -19,11 +19,11 @@ export function PeopleStep() {
       <AddPersonForm count={people.length} />
 
       {people.length === 0 ? (
-        <div className="rounded-2xl border-[1.5px] border-dashed border-border px-6 py-8 text-center">
+        <div className="rounded-xl border border-border px-6 py-8 text-center">
           <p className="text-base text-ink-soft">No one yet — type the first name above and press Add.</p>
         </div>
       ) : (
-        <ul className="flex flex-col divide-y divide-dashed divide-border rounded-2xl border border-border bg-paper-raised shadow-card">
+        <ul className="flex flex-col divide-y divide-border rounded-xl border border-border bg-paper-raised shadow-card">
           {people.map((p, i) => (
             <PersonRow key={p.id} person={p} position={i + 1} hasAssignments={personHasAssignments(bill, p.id)} />
           ))}
@@ -33,7 +33,7 @@ export function PeopleStep() {
       {people.length === 1 && <p className="text-sm font-semibold text-amber">Add at least one more person to split the bill.</p>}
 
       {people.length >= 2 && payer && (
-        <div className="mt-2 border-t-[1.5px] border-dashed border-border pt-5">
+        <div className="mt-2 border-t border-border pt-5">
           <PayerPicker people={people} payerId={payer.id} />
         </div>
       )}

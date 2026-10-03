@@ -26,7 +26,7 @@ export function SegmentedControl<T extends string>({
       aria-label={aria["aria-label"]}
       // A recessed track with the chosen option raised out of it: selection reads
       // through elevation and ink weight, leaving the accent colour to primary actions.
-      className={clsx("inline-flex gap-1 rounded-xl border border-border bg-paper-hover p-1", className)}
+      className={clsx("inline-flex gap-1 rounded-lg border border-border bg-paper-hover p-1", className)}
     >
       {options.map((opt) => {
         const active = opt.value === value;

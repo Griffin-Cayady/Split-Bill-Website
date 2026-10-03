@@ -42,7 +42,7 @@ export function PersonRow({ person, position, hasAssignments }: PersonRowProps) 
         type="button"
         aria-label={`Remove ${person.name}`}
         onClick={remove}
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-accent-soft hover:text-accent-hover"
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-danger-soft hover:text-danger"
       >
         <TrashIcon />
       </button>

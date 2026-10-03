@@ -9,36 +9,40 @@ const STEP_LABELS: Record<Step, string> = {
   results: "Totals",
 };
 
+/** Underlined tabs on a single hairline: the current step carries the accent bar, finished steps a tick. */
 export function StepNav() {
   const step = useUIStore((s) => s.step);
   const setStep = useUIStore((s) => s.setStep);
   const current = STEPS.indexOf(step);
 
   return (
-    <nav aria-label="Bill steps" className="px-4 py-4 sm:px-6">
-      <ol className="mx-auto flex max-w-6xl gap-1 rounded-2xl border border-border bg-paper-hover p-1">
+    <nav aria-label="Bill steps" className="px-4 sm:px-6">
+      <ol className="mx-auto flex max-w-6xl border-b border-border">
         {STEPS.map((s, i) => {
           const active = s === step;
           const passed = i < current;
           return (
-            <li key={s} className="min-w-0 flex-1">
+            <li key={s} className="min-w-0 flex-1 sm:flex-none">
               <button
                 type="button"
                 onClick={() => setStep(s)}
                 aria-current={active ? "step" : undefined}
                 className={clsx(
-                  "flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl px-1.5 py-1 font-sans text-label font-semibold whitespace-nowrap transition-[color,background-color,transform] duration-200 active:scale-[0.97] sm:min-h-12 sm:gap-2.5 sm:px-4 sm:text-secondary",
-                  active ? "bg-chrome text-chrome-ink shadow-press" : passed ? "text-ink hover:bg-paper-raised" : "text-ink-soft hover:bg-paper-raised hover:text-ink",
+                  "relative -mb-px flex min-h-12 w-full items-center justify-center gap-2 border-b-2 px-1 text-sm whitespace-nowrap transition-colors duration-150 sm:justify-start sm:px-4",
+                  active
+                    ? "border-accent font-semibold text-ink"
+                    : passed
+                      ? "border-transparent font-medium text-ink hover:border-field-border"
+                      : "border-transparent font-medium text-ink-soft hover:border-field-border hover:text-ink",
                 )}
               >
-                <span
-                  className={clsx(
-                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-mono text-label font-semibold sm:h-7 sm:w-7",
-                    active ? "bg-accent text-accent-ink" : passed ? "bg-ink text-paper" : "border border-field-border text-ink-soft",
-                  )}
-                >
-                  {passed ? <CheckIcon width={13} height={13} strokeWidth={3} aria-hidden="true" /> : i + 1}
-                </span>
+                {passed ? (
+                  <CheckIcon width={14} height={14} aria-hidden="true" className="shrink-0 text-teal" />
+                ) : (
+                  <span aria-hidden="true" className={clsx("hidden font-mono text-label sm:inline", active ? "text-accent" : "text-ink-faint")}>
+                    {i + 1}
+                  </span>
+                )}
                 {STEP_LABELS[s]}
               </button>
             </li>

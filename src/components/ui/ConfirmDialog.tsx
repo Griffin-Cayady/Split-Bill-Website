@@ -76,7 +76,7 @@ export function ConfirmDialog({
     >
       <div
         ref={panelRef}
-        className="w-full max-w-sm rounded-2xl border-[1.5px] border-border bg-paper-raised p-5 shadow-xl"
+        className="w-full max-w-sm rounded-xl border border-border bg-paper-raised p-5 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 id={titleId} className="font-display text-lg font-extrabold text-ink">

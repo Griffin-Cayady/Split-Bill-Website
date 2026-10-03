@@ -1,3 +1,4 @@
+import { fieldClass } from "../../components/ui/field";
 import clsx from "clsx";
 import { CommitInput } from "../../components/ui/CommitInput";
 import { SegmentedControl } from "../../components/ui/SegmentedControl";
@@ -22,7 +23,7 @@ export function ChargeRow({ charge, computedAmount }: { charge: Charge; computed
   }
 
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-paper-raised p-4 shadow-card sm:p-5">
+    <div className="flex flex-col gap-3 rounded-xl border border-border bg-paper-raised p-4 shadow-card sm:p-5">
       {isMobile ? (
         <div className="flex flex-col gap-2.5">
           <SegmentedControl
@@ -47,7 +48,7 @@ export function ChargeRow({ charge, computedAmount }: { charge: Charge; computed
               type="button"
               aria-label={`Delete ${charge.label || "charge"}`}
               onClick={remove}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-paper-hover hover:text-accent-hover"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-paper-hover hover:text-danger"
             >
               <TrashIcon />
             </button>
@@ -87,7 +88,7 @@ export function ChargeRow({ charge, computedAmount }: { charge: Charge; computed
               type="button"
               aria-label={`Delete ${charge.label || "charge"}`}
               onClick={remove}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-paper-hover hover:text-accent-hover"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-paper-hover hover:text-danger"
             >
               <TrashIcon />
             </button>
@@ -154,7 +155,7 @@ function ChargeValueField({ charge, currencySymbol, className }: { charge: Charg
       onCommit={commit}
       aria-label="Charge value"
       className={clsx(
-        "rounded-xl border-[1.5px] border-field-border bg-paper px-2.5 text-right font-mono tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none",
+        fieldClass, "px-2.5 text-right font-mono tabular-nums",
         className,
       )}
     />
@@ -162,4 +163,4 @@ function ChargeValueField({ charge, currencySymbol, className }: { charge: Charg
 }
 
 const labelFieldClass =
-  "h-12 min-w-0 flex-1 border-0 border-b-[1.5px] border-field-border bg-transparent px-0.5 font-display text-title font-semibold tracking-tight text-ink transition-colors placeholder:font-sans placeholder:font-normal placeholder:text-ink-faint hover:border-ink focus:border-accent focus:shadow-[0_1.5px_0_0_var(--accent)] focus:outline-none";
+  clsx(fieldClass, "h-11 min-w-0 flex-1 px-3 text-body-lg font-semibold");

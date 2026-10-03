@@ -1,3 +1,4 @@
+import { fieldClass } from "../../components/ui/field";
 import clsx from "clsx";
 import { Avatar } from "../../components/ui/Avatar";
 import { Chip } from "../../components/ui/Chip";
@@ -45,7 +46,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center gap-3">
-        <span className="font-mono text-label font-medium tracking-[0.08em] text-ink-soft uppercase">Total pieces</span>
+        <span className="text-sm font-medium text-ink-soft">Total pieces</span>
         <input
           type="number"
           min={0}
@@ -54,7 +55,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
           onChange={(e) => setTotalUnits(Number.parseFloat(e.target.value) || 0)}
           placeholder="0"
           aria-label="Total pieces"
-          className="h-11 w-[76px] rounded-xl border-[1.5px] border-field-border bg-paper px-3 text-center font-mono text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
+          className={clsx(fieldClass, "h-11 w-[76px] px-3 text-center font-mono")}
         />
         {item.totalUnits ? (
           <span className="font-mono text-sm text-ink-soft">≈ {formatMoney(Math.round(pricePerUnit), bill.currency)} / piece</span>
@@ -62,7 +63,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
       </div>
 
       {assignments.length > 0 && (
-        <ul className="flex flex-col divide-y divide-dashed divide-border rounded-xl border border-border">
+        <ul className="flex flex-col divide-y divide-border rounded-lg border border-border">
           {assignments.map((a) => {
             const person = people.find((p) => p.id === a.personId);
             if (!person) return null;
@@ -97,10 +98,10 @@ export function UnitsModeAssign({ item }: { item: Item }) {
         <div
           role="status"
           className={clsx(
-            "flex flex-wrap items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-bold",
+            "flex flex-wrap items-center gap-2 rounded-lg px-3.5 py-2.5 text-sm font-bold",
             validation.status === "exact" && "bg-teal-soft text-teal",
             validation.status === "under" && "bg-amber-soft text-amber",
-            validation.status === "over" && "bg-accent-soft text-accent-hover",
+            validation.status === "over" && "bg-danger-soft text-danger",
           )}
         >
           {validation.status === "exact" ? <CheckIcon width={16} height={16} /> : <AlertIcon width={16} height={16} />}
@@ -118,7 +119,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
           )}
         </div>
       ) : (
-        <div className="rounded-xl bg-amber-soft px-3.5 py-2.5 text-sm font-bold text-amber">Set how many pieces there are in total</div>
+        <div className="rounded-lg bg-amber-soft px-3.5 py-2.5 text-sm font-bold text-amber">Set how many pieces there are in total</div>
       )}
     </div>
   );

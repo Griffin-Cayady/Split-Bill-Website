@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import { fieldClass } from "../../components/ui/field";
 import { useBillStore } from "../../store/billStore";
 import { Stepper } from "../../components/ui/Stepper";
 import { ItemPriceField } from "./ItemPriceField";
@@ -17,13 +19,13 @@ export function ItemFormMobile({ item, onDelete }: { item: Item; onDelete: () =>
           onChange={(e) => updateItem(item.id, { name: e.target.value })}
           placeholder="Item name"
           aria-label="Item name"
-          className="h-12 min-w-0 flex-1 border-0 border-b-[1.5px] border-field-border bg-transparent px-0.5 font-display text-title font-semibold tracking-tight text-ink transition-colors placeholder:font-sans placeholder:font-normal placeholder:text-ink-faint hover:border-ink focus:border-accent focus:shadow-[0_1.5px_0_0_var(--accent)] focus:outline-none"
+          className={clsx(fieldClass, "h-11 min-w-0 flex-1 px-3 text-body-lg font-semibold")}
         />
         <button
           type="button"
           aria-label={`Delete ${item.name.trim() || "unnamed item"}`}
           onClick={onDelete}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-paper-hover hover:text-accent-hover"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-paper-hover hover:text-danger"
         >
           <TrashIcon />
         </button>

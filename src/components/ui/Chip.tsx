@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Avatar } from "./Avatar";
+import { CheckIcon, PlusIcon } from "./icons";
 
 interface ChipProps {
   name: string;
@@ -17,21 +18,17 @@ export function Chip({ name, color, selected, onClick, disabled }: ChipProps) {
       disabled={disabled}
       aria-pressed={selected}
       className={clsx(
-        "inline-flex h-12 min-w-12 items-center gap-2 rounded-full border-[1.5px] pl-1.5 pr-4 font-sans text-sm font-bold",
-        "transition-colors duration-150",
-        selected ? "text-white" : "bg-paper-raised text-ink hover:bg-paper-hover",
+        "inline-flex min-h-11 items-center gap-2 rounded-full border py-1 pr-3.5 pl-1 text-sm",
+        "transition-[color,background-color,border-color,transform] duration-150 active:scale-[0.97]",
+        selected
+          ? "border-ink bg-ink font-semibold text-paper"
+          : "border-field-border bg-paper-raised font-medium text-ink-soft hover:border-ink hover:text-ink",
         disabled && "pointer-events-none opacity-40",
       )}
-      style={{
-        backgroundColor: selected ? color : undefined,
-        borderColor: selected ? color : "var(--border)",
-      }}
     >
-      <Avatar name={name} color={selected ? "rgba(255,255,255,0.28)" : color} size="sm" />
+      <Avatar name={name} color={color} size="sm" />
       <span className="max-w-[9rem] truncate">{name}</span>
-      <span aria-hidden="true" className="text-base font-extrabold">
-        {onClick && (selected ? "✓" : "+")}
-      </span>
+      {onClick && (selected ? <CheckIcon width={14} height={14} aria-hidden="true" /> : <PlusIcon width={14} height={14} aria-hidden="true" />)}
     </button>
   );
 }

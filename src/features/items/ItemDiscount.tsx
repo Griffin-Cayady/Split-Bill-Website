@@ -38,7 +38,7 @@ export function ItemDiscount({ item, compact }: { item: Item; compact?: boolean 
 
   if (isMobile) {
     return (
-      <div className="flex flex-col gap-3 rounded-xl border-[1.5px] border-teal-border bg-teal-soft px-3.5 py-3.5">
+      <div className="flex flex-col gap-3 rounded-lg border border-teal-border bg-teal-soft px-3.5 py-3.5">
         <div className="flex items-center justify-between gap-2">
           <span className="text-sm font-bold text-teal">Discount on this item</span>
           <button
@@ -71,7 +71,7 @@ export function ItemDiscount({ item, compact }: { item: Item; compact?: boolean 
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2.5 rounded-xl border-[1.5px] border-teal-border bg-teal-soft px-3.5 py-3">
+    <div className="flex flex-wrap items-center gap-2.5 rounded-lg border border-teal-border bg-teal-soft px-3.5 py-3">
       <span className="text-sm font-bold text-teal">Discount on this item</span>
       <SegmentedControl
         aria-label="Discount percent or fixed amount"
@@ -134,7 +134,7 @@ function DiscountValueField({
       onCommit={commit}
       aria-label="Discount value"
       className={clsx(
-        "rounded-lg border-[1.5px] border-teal-border bg-paper-raised px-2 text-right font-mono tabular-nums text-teal focus:border-teal focus:ring-2 focus:ring-teal/60 focus:outline-none",
+        "rounded-lg border border-teal-border bg-paper-raised px-2 text-right font-mono tabular-nums text-teal focus:border-teal focus:ring-2 focus:ring-teal/60 focus:outline-none",
         className,
       )}
     />

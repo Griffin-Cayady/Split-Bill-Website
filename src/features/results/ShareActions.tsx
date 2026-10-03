@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import { fieldClass } from "../../components/ui/field";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../../components/ui/Button";
 import { CheckIcon, DownloadIcon, LinkIcon, ShareIcon } from "../../components/ui/icons";
@@ -124,13 +126,13 @@ export function ShareActions({ bill }: { bill: Bill }) {
             readOnly
             value={shareUrl}
             onFocus={(e) => e.currentTarget.select()}
-            className="h-11 rounded-xl border-[1.5px] border-field-border bg-paper px-3 font-mono text-sm text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
+            className={clsx(fieldClass, "h-11 px-3 font-mono text-sm")}
           />
         </label>
       )}
 
       {urlTooLong && (
-        <p className="text-label text-accent">
+        <p className="text-label text-amber">
           This bill makes a long link (~{Math.round(shareUrl.length / 1000)}k characters) — Download image works more reliably for
           big bills.
         </p>

@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import { fieldClass } from "./field";
 import { CommitInput } from "./CommitInput";
 import { MinusIcon, PlusIcon } from "./icons";
 
@@ -26,7 +28,7 @@ export function Stepper({ value, onChange, min = 0, max = Infinity, step = 1, ar
         aria-label={`Decrease ${ariaLabel}`}
         onClick={() => onChange(clamp(value - step))}
         disabled={value <= min}
-        className="flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-border text-ink transition-[background-color,transform] duration-150 hover:bg-paper-hover active:scale-90 disabled:opacity-30"
+        className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-ink transition-[background-color,transform] duration-150 hover:bg-paper-hover active:scale-90 disabled:opacity-30"
       >
         <MinusIcon width={16} height={16} />
       </button>
@@ -40,14 +42,14 @@ export function Stepper({ value, onChange, min = 0, max = Infinity, step = 1, ar
           const v = Number.parseFloat(text);
           if (!Number.isNaN(v)) onChange(clamp(v));
         }}
-        className="h-11 w-14 rounded-xl border-[1.5px] border-field-border bg-paper-raised text-center font-mono tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
+        className={clsx(fieldClass, "h-11 w-14 text-center font-mono tabular-nums")}
       />
       <button
         type="button"
         aria-label={`Increase ${ariaLabel}`}
         onClick={() => onChange(clamp(value + step))}
         disabled={value >= max}
-        className="flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-border text-ink transition-[background-color,transform] duration-150 hover:bg-paper-hover active:scale-90 disabled:opacity-30"
+        className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-ink transition-[background-color,transform] duration-150 hover:bg-paper-hover active:scale-90 disabled:opacity-30"
       >
         <PlusIcon width={16} height={16} />
       </button>

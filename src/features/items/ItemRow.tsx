@@ -23,7 +23,7 @@ export function ItemRow({ item, onDelete }: { item: Item; onDelete: () => void }
   return (
     <div
       id={itemElementId(item.id)}
-      className="flex scroll-mt-6 flex-col gap-4 rounded-2xl border border-border bg-paper-raised p-4 shadow-card sm:p-5"
+      className="flex scroll-mt-6 flex-col gap-4 rounded-xl border border-border bg-paper-raised p-4 sm:p-5"
     >
       {isMobile ? (
         <>
@@ -33,11 +33,11 @@ export function ItemRow({ item, onDelete }: { item: Item; onDelete: () => void }
         </>
       ) : (
         <>
-          <ItemForm item={item} onDelete={onDelete} />
+          <ItemForm item={item} onDelete={onDelete} trailing={<AssignmentModeControl item={item} />} />
           <ItemDiscount item={item} />
         </>
       )}
-      <AssignmentModeControl item={item} />
+      {isMobile && <AssignmentModeControl item={item} />}
       <ModeAssign item={item} />
     </div>
   );

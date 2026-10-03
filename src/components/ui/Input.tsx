@@ -1,3 +1,4 @@
+import { fieldClass } from "./field";
 import type { InputHTMLAttributes } from "react";
 import clsx from "clsx";
 
@@ -19,16 +20,16 @@ export function Input({ label, error, mono, id, className, ...props }: InputProp
       <input
         id={inputId}
         className={clsx(
-          "h-12 rounded-xl border-[1.5px] border-border bg-paper-raised px-3.5 text-ink placeholder:text-ink-faint",
-          "focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/60",
+          "h-12 rounded-lg border border-border bg-paper-raised px-3.5 text-ink placeholder:text-ink-faint",
+          fieldClass,
           mono && "font-mono tabular-nums",
-          error && "border-accent",
+          error && "border-danger",
           className,
         )}
         aria-invalid={Boolean(error)}
         {...props}
       />
-      {error && <span className="text-label text-accent">{error}</span>}
+      {error && <span className="text-label text-danger">{error}</span>}
     </div>
   );
 }

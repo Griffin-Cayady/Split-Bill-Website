@@ -47,15 +47,10 @@ export function AppShell() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-6xl flex-col">
-      <header className="flex flex-wrap items-center gap-3.5 px-4 pt-6 pb-4 sm:px-6">
-        <div className="flex items-baseline gap-2.5">
-          <span className="font-display text-headline font-extrabold tracking-[-0.03em] text-ink">
-            Split<span className="text-accent">Easy</span>
-          </span>
-          <span className="hidden font-mono text-label font-medium tracking-[0.12em] text-ink-soft uppercase sm:inline">
-            split it fair
-          </span>
-        </div>
+      <header className="flex min-h-16 items-center gap-3.5 px-4 pt-3 sm:px-6">
+        <span className="font-display text-xl font-bold tracking-[-0.04em] text-ink">
+          Split<span className="text-accent">Easy</span>
+        </span>
         {/* On phones "Clear bill" sits inside the expanded bill settings instead. */}
         {!isMobile && <ResetBillButton />}
       </header>
@@ -63,7 +58,7 @@ export function AppShell() {
       <BillSettingsBar />
       <StepNav />
 
-      <main ref={mainRef} className="flex-1 px-4 pt-2 pb-[calc(var(--bottom-bar-h,0px)+24px)] sm:px-6 lg:pb-10">
+      <main ref={mainRef} className="flex-1 px-4 pt-6 pb-[calc(var(--bottom-bar-h,0px)+24px)] sm:px-6 lg:pb-10">
         {showSplitPanel ? (
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
             <div key={step} className="animate-step-in min-w-0">

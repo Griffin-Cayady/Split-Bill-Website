@@ -49,7 +49,7 @@ export function StickyBottomBar() {
           <button
             type="button"
             onClick={goBack}
-            className="min-h-11 shrink-0 rounded-xl border-[1.5px] border-chrome-line px-4 text-sm font-bold text-chrome-ink"
+            className="min-h-11 shrink-0 rounded-lg border border-chrome-line px-4 text-sm font-bold text-chrome-ink"
           >
             Back
           </button>

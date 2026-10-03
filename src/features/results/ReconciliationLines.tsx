@@ -15,8 +15,13 @@ function signed(amount: number, bill: Bill): string {
  */
 export function ReconciliationLines({ bill, rec }: { bill: Bill; rec: BillReconciliation }) {
   return (
-    <div className="flex flex-col gap-2.5">
-      <dl className="flex flex-col gap-1.5 text-secondary">
+    <div className="overflow-hidden rounded-xl border border-border bg-paper-raised">
+      <div className="bg-accent px-5 pt-4 pb-5 text-accent-ink">
+        <div className="text-sm font-medium opacity-85">Grand total</div>
+        <div className="tabular-money mt-1 text-[2rem] leading-tight font-semibold tracking-tight">{formatMoney(rec.grandTotal, bill.currency)}</div>
+      </div>
+
+      <dl className="flex flex-col gap-2 px-5 pt-4 text-secondary">
         <div className="flex justify-between gap-3">
           <dt className="text-ink-soft">Items</dt>
           <dd className="tabular-money text-ink">{formatMoney(rec.itemsTotal, bill.currency)}</dd>
@@ -47,17 +52,13 @@ export function ReconciliationLines({ bill, rec }: { bill: Bill; rec: BillReconc
         )}
       </dl>
 
-      <div className="flex items-baseline justify-between gap-3 border-t-2 border-ink pt-4 font-display text-2xl font-extrabold tracking-tight text-ink">
-        <span>Grand total</span>
-        <span className="tabular-money">{formatMoney(rec.grandTotal, bill.currency)}</span>
-      </div>
-
       {rec.unassigned === 0 && (
-        <p className="flex items-center gap-2 text-sm font-bold text-teal">
+        <p className="mx-5 mt-4 flex items-center gap-2 border-t border-border pt-3 text-sm font-semibold text-teal">
           <CheckIcon width={16} height={16} aria-hidden="true" />
           Adds up — every item is fully split.
         </p>
       )}
+      <div className="h-4" aria-hidden="true" />
     </div>
   );
 }

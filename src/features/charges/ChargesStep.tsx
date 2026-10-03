@@ -23,7 +23,7 @@ export function ChargesStep() {
       </div>
 
       {bill.charges.length === 0 ? (
-        <div className="rounded-2xl border-[1.5px] border-dashed border-border px-6 py-8 text-center">
+        <div className="rounded-xl border border-border px-6 py-8 text-center">
           <p className="text-base text-ink-soft">Nothing here yet — skip ahead if your receipt has no tax, service or tip.</p>
         </div>
       ) : (
@@ -37,14 +37,14 @@ export function ChargesStep() {
       <button
         type="button"
         onClick={() => addCharge({ label: "" })}
-        className="min-h-[52px] w-full rounded-2xl border-[1.5px] border-dashed border-field-border px-6 text-base font-semibold text-ink transition-[background-color,border-color,transform] hover:border-ink hover:bg-paper-raised active:scale-[0.99] sm:w-auto sm:self-start"
+        className="min-h-[52px] w-full rounded-xl border border-field-border px-6 text-base font-semibold text-ink transition-[background-color,border-color,transform] hover:border-ink hover:bg-paper-raised active:scale-[0.99] sm:w-auto sm:self-start"
       >
         <PlusIcon width={18} height={18} className="mr-1.5 inline align-text-bottom" />
         Add charge
       </button>
 
       {isMobile ? (
-        <div className="flex flex-col gap-2 rounded-2xl border border-border bg-paper-raised px-4 py-3.5 text-secondary shadow-card">
+        <div className="flex flex-col gap-2 rounded-xl border border-border bg-paper-raised px-4 py-3.5 text-secondary shadow-card">
           <div className="flex justify-between text-ink-soft">
             <span>Subtotal</span>
             <span className="tabular-money">{formatMoney(result.billSubtotal, bill.currency)}</span>
@@ -61,13 +61,13 @@ export function ChargesStep() {
               </div>
             );
           })}
-          <div className="flex justify-between border-t-[1.5px] border-dashed border-border pt-2 font-display text-xl font-extrabold text-ink">
+          <div className="flex justify-between border-t border-border pt-2 font-display text-xl font-extrabold text-ink">
             <span>Grand total</span>
             <span className="tabular-money">{formatMoney(result.grandTotal, bill.currency)}</span>
           </div>
         </div>
       ) : (
-        <div className="flex justify-between border-t-2 border-ink pt-4 font-display text-xl font-extrabold text-ink">
+        <div className="flex justify-between border-t border-ink pt-4 font-display text-xl font-extrabold text-ink">
           <span>Grand total</span>
           <span className="tabular-money">{formatMoney(result.grandTotal, bill.currency)}</span>
         </div>

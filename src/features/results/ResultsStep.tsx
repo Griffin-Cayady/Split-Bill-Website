@@ -14,12 +14,12 @@ export function ResultsStep() {
 
   if (bill.people.length === 0 || bill.items.length === 0) {
     return (
-      <div className="rounded-2xl border-[1.5px] border-dashed border-border px-6 py-8 text-center">
+      <div className="rounded-xl border border-border px-6 py-8 text-center">
         <p className="text-base text-ink-soft">Add people and items first to see who owes what.</p>
         <button
           type="button"
           onClick={() => setStep("people")}
-          className="mt-4 min-h-11 rounded-xl border-[1.5px] border-border bg-paper-raised px-4 text-sm font-bold text-ink hover:bg-paper-hover"
+          className="mt-4 min-h-11 rounded-lg border border-border bg-paper-raised px-4 text-sm font-bold text-ink hover:bg-paper-hover"
         >
           Back to People
         </button>
@@ -42,7 +42,7 @@ export function ResultsStep() {
       {!validation.valid && (
         <div
           role="alert"
-          className="rounded-xl border-[1.5px] border-accent bg-accent-soft px-3.5 py-2.5 text-sm font-semibold text-accent-hover"
+          className="rounded-lg border border-danger/40 bg-danger-soft px-3.5 py-2.5 text-sm font-semibold text-danger"
         >
           {rec.unassigned > 0
             ? `${formatMoney(rec.unassigned, bill.currency)} of items isn't assigned to anyone yet, so these totals are short.`
@@ -68,11 +68,9 @@ export function ResultsStep() {
           ))}
         </div>
 
-        {/* The bill's own arithmetic, set as a receipt, with the ways to send it right underneath. */}
+        {/* The grand total and the arithmetic behind it, with the ways to send it right underneath. */}
         <aside aria-label="Bill total" className="flex flex-col gap-5 lg:sticky lg:top-6">
-          <div className="torn-edge-bottom rounded-t border border-b-0 border-border bg-paper-raised px-5 pt-5 pb-9 shadow-lift">
-            <ReconciliationLines bill={bill} rec={rec} />
-          </div>
+          <ReconciliationLines bill={bill} rec={rec} />
           <ShareActions bill={bill} />
         </aside>
       </div>

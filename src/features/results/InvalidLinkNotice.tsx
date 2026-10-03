@@ -9,7 +9,7 @@ export function InvalidLinkNotice() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center gap-4 px-6 text-center">
-      <AlertIcon width={32} height={32} className="text-accent" />
+      <AlertIcon width={32} height={32} className="text-danger" />
       <h1 className="font-display text-xl font-semibold text-ink">This link is invalid or from a newer version.</h1>
       <p className="text-sm text-ink-soft">
         The shared bill couldn't be read — it may be corrupted, incomplete, or created with a newer version of SplitEasy.
