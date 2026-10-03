@@ -55,7 +55,7 @@ export function ReconciliationLines({ bill, rec }: { bill: Bill; rec: BillReconc
       {rec.unassigned === 0 && (
         <p className="mx-5 mt-4 flex items-center gap-2 border-t border-border pt-3 text-sm font-semibold text-teal">
           <CheckIcon width={16} height={16} aria-hidden="true" />
-          Adds up — every item is fully split.
+          Adds up. Every item is fully split.
         </p>
       )}
       <div className="h-4" aria-hidden="true" />

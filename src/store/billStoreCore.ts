@@ -36,7 +36,7 @@ function migrateLegacyItem(item: Item & { singlePersonId?: string; customShares?
 export function createDefaultBill(): Bill {
   return {
     version: 1,
-    title: `Split Bill — ${new Date().toLocaleDateString(undefined, { month: "short", day: "numeric" })}`,
+    title: `Split bill, ${new Date().toLocaleDateString(undefined, { month: "short", day: "numeric" })}`,
     dateISO: todayISO(),
     currency: defaultCurrency(),
     people: [],

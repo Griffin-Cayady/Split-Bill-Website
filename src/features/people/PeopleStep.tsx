@@ -20,7 +20,7 @@ export function PeopleStep() {
 
       {people.length === 0 ? (
         <div className="rounded-xl border border-border px-6 py-8 text-center">
-          <p className="text-base text-ink-soft">No one yet — type the first name above and press Add.</p>
+          <p className="text-base text-ink-soft">No one yet. Type the first name above and press Add.</p>
         </div>
       ) : (
         <ul className="flex flex-col divide-y divide-border rounded-xl border border-border bg-paper-raised shadow-card">

@@ -55,7 +55,7 @@ export function ShareActions({ bill }: { bill: Bill }) {
       const { exportReceiptImage } = await import("../../lib/share/image");
       await exportReceiptImage(cardRef.current, `split-bill-${bill.dateISO.replace(/-/g, "")}.png`);
     } catch {
-      pushToast("Couldn't generate the image — try again.");
+      pushToast("Couldn't create the image. Try again.");
     } finally {
       setBusy(null);
     }
@@ -78,7 +78,7 @@ export function ShareActions({ bill }: { bill: Bill }) {
       if (err instanceof DOMException && err.name === "AbortError") {
         // user cancelled the native share sheet — not an error
       } else {
-        pushToast("Couldn't share the image — try downloading instead.");
+        pushToast("Couldn't share the image. Try downloading it instead.");
       }
     } finally {
       setBusy(null);
@@ -93,7 +93,7 @@ export function ShareActions({ bill }: { bill: Bill }) {
       setTimeout(() => setCopied(false), 2500);
     } else {
       setShowLinkField(true);
-      pushToast("Couldn't copy automatically — the link is shown below.");
+      pushToast("Couldn't copy automatically. The link is shown below.");
     }
   }
 
@@ -121,7 +121,7 @@ export function ShareActions({ bill }: { bill: Bill }) {
 
       {showLinkField && (
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm font-bold text-ink">Share link — select it and copy</span>
+          <span className="text-sm font-bold text-ink">Share link: select it and copy</span>
           <input
             readOnly
             value={shareUrl}
@@ -133,7 +133,7 @@ export function ShareActions({ bill }: { bill: Bill }) {
 
       {urlTooLong && (
         <p className="text-label text-amber">
-          This bill makes a long link (~{Math.round(shareUrl.length / 1000)}k characters) — Download image works more reliably for
+          This bill makes a long link (~{Math.round(shareUrl.length / 1000)}k characters). Download image works more reliably for
           big bills.
         </p>
       )}

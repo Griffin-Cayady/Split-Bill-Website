@@ -24,7 +24,7 @@ export function ItemsStep() {
 
       {items.length === 0 ? (
         <div className="rounded-xl border border-border px-6 py-8 text-center">
-          <p className="text-base text-ink-soft">No items yet — add the first one below.</p>
+          <p className="text-base text-ink-soft">No items yet. Add the first one below.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-4">

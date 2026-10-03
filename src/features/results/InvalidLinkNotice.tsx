@@ -12,7 +12,7 @@ export function InvalidLinkNotice() {
       <AlertIcon width={32} height={32} className="text-danger" />
       <h1 className="font-display text-xl font-semibold text-ink">This link is invalid or from a newer version.</h1>
       <p className="text-sm text-ink-soft">
-        The shared bill couldn't be read — it may be corrupted, incomplete, or created with a newer version of SplitEasy.
+        This shared bill couldn't be read. The link may be incomplete, or it was made with a newer version of SplitEasy.
       </p>
       <Button onClick={startNew}>Start a new bill</Button>
     </div>

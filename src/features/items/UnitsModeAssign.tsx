@@ -109,7 +109,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
             {validation.status === "exact"
               ? `All ${validation.total} pieces assigned`
               : validation.status === "over"
-                ? `Too many — ${validation.assigned} assigned but only ${validation.total} pieces`
+                ? `Too many: ${validation.assigned} assigned but only ${validation.total} pieces`
                 : `${validation.remaining} of ${validation.total} pieces left to assign`}
           </span>
           {validation.status === "under" && (

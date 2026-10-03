@@ -97,7 +97,7 @@ export function PersonResultCard({ person, result, currency, defaultOpen, payer,
                 settled ? "border-teal-border bg-teal-soft text-teal" : "border-border bg-transparent text-ink hover:bg-paper-hover",
               )}
             >
-              {settled ? `Undo — ${person.name.trim() || "they"} hasn't paid yet` : `Mark as paid back to ${payerName}`}
+              {settled ? `Undo: ${person.name.trim() || "they"} hasn't paid yet` : `Mark as paid back to ${payerName}`}
             </button>
           )}
         </div>
