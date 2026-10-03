@@ -37,7 +37,7 @@ export function StickyBottomBar() {
   return (
     <div
       ref={barRef}
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-chrome-line bg-chrome pb-[env(safe-area-inset-bottom)] text-chrome-ink shadow-[0_-6px_20px_rgba(51,41,28,0.18)]"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-chrome-line bg-chrome pb-[env(safe-area-inset-bottom)] text-chrome-ink shadow-[0_-10px_28px_-12px_rgb(var(--shadow-color)/0.35)]"
     >
       {hint && (
         <div className="border-b border-chrome-line px-4 py-2 text-center text-label font-semibold text-chrome-hint">

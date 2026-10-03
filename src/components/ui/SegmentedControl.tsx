@@ -24,7 +24,9 @@ export function SegmentedControl<T extends string>({
     <div
       role="radiogroup"
       aria-label={aria["aria-label"]}
-      className={clsx("inline-flex overflow-hidden rounded-xl border-[1.5px] border-border", className)}
+      // A recessed track with the chosen option raised out of it: selection reads
+      // through elevation and ink weight, leaving the accent colour to primary actions.
+      className={clsx("inline-flex gap-1 rounded-xl border border-border bg-paper-hover p-1", className)}
     >
       {options.map((opt) => {
         const active = opt.value === value;
@@ -36,8 +38,10 @@ export function SegmentedControl<T extends string>({
             aria-checked={active}
             onClick={() => onChange(opt.value)}
             className={clsx(
-              "min-h-12 flex-1 px-4 py-3 text-sm font-bold whitespace-nowrap transition-colors duration-150",
-              active ? "bg-accent text-accent-ink" : "bg-paper-raised text-ink hover:bg-paper-hover",
+              "min-h-10 flex-1 rounded-lg px-3.5 py-2 text-sm whitespace-nowrap transition-[color,background-color,box-shadow,transform] duration-150 active:scale-[0.97]",
+              active
+                ? "bg-paper-raised font-bold text-ink shadow-[0_0_0_1px_var(--field-border),var(--shadow-press)]"
+                : "font-semibold text-ink-soft hover:text-ink",
             )}
           >
             {opt.label}

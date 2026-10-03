@@ -26,7 +26,7 @@ export function Stepper({ value, onChange, min = 0, max = Infinity, step = 1, ar
         aria-label={`Decrease ${ariaLabel}`}
         onClick={() => onChange(clamp(value - step))}
         disabled={value <= min}
-        className="flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-border text-ink transition-colors hover:bg-paper-hover disabled:opacity-30"
+        className="flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-border text-ink transition-[background-color,transform] duration-150 hover:bg-paper-hover active:scale-90 disabled:opacity-30"
       >
         <MinusIcon width={16} height={16} />
       </button>
@@ -47,7 +47,7 @@ export function Stepper({ value, onChange, min = 0, max = Infinity, step = 1, ar
         aria-label={`Increase ${ariaLabel}`}
         onClick={() => onChange(clamp(value + step))}
         disabled={value >= max}
-        className="flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-border text-ink transition-colors hover:bg-paper-hover disabled:opacity-30"
+        className="flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-border text-ink transition-[background-color,transform] duration-150 hover:bg-paper-hover active:scale-90 disabled:opacity-30"
       >
         <PlusIcon width={16} height={16} />
       </button>

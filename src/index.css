@@ -93,8 +93,9 @@
   --color-amber-soft: var(--amber-soft);
 
   /* Type roles. 13px is the floor; body is 16px at every width. */
-  --text-display: 1.875rem; /* step headings */
-  --text-display--line-height: 1.15;
+  --text-display: 2.125rem; /* step headings */
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.025em;
   --text-headline: 1.625rem; /* wordmark, shared-bill title */
   --text-headline--line-height: 1.2;
   --text-title: 1.1875rem; /* person names on result cards */
@@ -106,9 +107,14 @@
   --text-label: 0.8125rem; /* field labels, metadata, badges */
   --text-label--line-height: 1.35;
 
-  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+
+  /* Shadows carry the paper's own hue instead of neutral black. */
+  --shadow-card: 0 1px 2px rgb(var(--shadow-color) / 0.06), 0 8px 24px -12px rgb(var(--shadow-color) / 0.18);
+  --shadow-lift: 0 1px 2px rgb(var(--shadow-color) / 0.08), 0 14px 32px -14px rgb(var(--shadow-color) / 0.32);
+  --shadow-press: 0 1px 2px rgb(var(--shadow-color) / 0.14);
 }
 
 * {
@@ -129,6 +135,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 /* Subtle paper grain overlay, never intercepts pointer events. */

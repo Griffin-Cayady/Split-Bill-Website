@@ -8,7 +8,7 @@ export function LiveSummaryPanel() {
   const rec = reconcileBill(bill, result);
 
   return (
-    <div className="torn-edge-bottom sticky top-6 rounded-t border-[1.5px] border-b-0 border-border bg-paper-raised px-5 pt-5 pb-8 shadow-[0_10px_24px_rgba(51,41,28,0.08)]">
+    <div className="torn-edge-bottom sticky top-6 rounded-t border-[1.5px] border-b-0 border-border bg-paper-raised px-5 pt-5 pb-8 shadow-lift">
       <div className="mb-3 flex items-center justify-between border-b-[1.5px] border-dashed border-border pb-2.5">
         <h2 className="text-label font-extrabold tracking-wide text-ink uppercase">Live receipt</h2>
         <span className="font-mono text-label text-ink-soft">
