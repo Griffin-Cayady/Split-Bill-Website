@@ -10,20 +10,22 @@ interface ReceiptCardProps {
 
 // Fixed palette (not tied to the app's light/dark CSS vars): a shared/exported
 // receipt should look identical no matter which theme the viewer captured it
-// in. Matches the "Receipt redesign" design import exactly.
-const INK = "#241f19";
-const INK_LINE = "#3a342b";
-const MUTED = "#8a8175";
-const MUTED_AMOUNT = "#6b6357";
-const BORDER = "#eee8dc";
-const BORDER_STRONG = "#e4ded3";
-const CARD_BG = "#fffdf9";
-const FOOTER_BG = "#faf7f0";
-const DOTTED = "#ddd5c6";
-const ACCENT = "#c2401b";
+// in. Mirrors the app's light theme: cool neutrals, blue brand accent, and
+// green for money taken off.
+const INK = "#111318";
+const INK_LINE = "#2c3039";
+const MUTED = "#626977";
+const MUTED_AMOUNT = "#555c69";
+const BORDER = "#eceef1";
+const BORDER_STRONG = "#e2e5ea";
+const CARD_BG = "#fcfcfd";
+const FOOTER_BG = "#f4f5f7";
+const DOTTED = "#d5d9df";
+const ACCENT = "#2650f0";
+const DISCOUNT = "#13744a";
 
-const SANS = "'Libre Franklin', sans-serif";
-const MONO = "'IBM Plex Mono', monospace";
+const SANS = "'Geist', system-ui, sans-serif";
+const MONO = "'Geist Mono', ui-monospace, monospace";
 
 /** Matches the design's exact negative formatting: a leading minus before the symbol, e.g. "−Rp 500". */
 function formatSigned(amount: number, currency: Currency): string {
@@ -48,7 +50,7 @@ export const ReceiptCard = forwardRef<HTMLDivElement, ReceiptCardProps>(function
         width: 640,
         background: CARD_BG,
         border: `1px solid ${BORDER_STRONG}`,
-        boxShadow: "0 24px 48px -24px rgba(48,38,28,0.25)",
+        boxShadow: "0 24px 48px -24px rgba(17,19,24,0.18)",
         color: INK,
         fontFamily: SANS,
       }}
@@ -108,9 +110,9 @@ export const ReceiptCard = forwardRef<HTMLDivElement, ReceiptCardProps>(function
                   key={line.key}
                   style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "5px 0 5px 36px" }}
                 >
-                  <div style={{ fontSize: 13.5, color: negative ? ACCENT : INK_LINE }}>{line.label}</div>
+                  <div style={{ fontSize: 13.5, color: negative ? DISCOUNT : INK_LINE }}>{line.label}</div>
                   <div style={{ flex: 1, margin: "0 12px", borderBottom: `1px dotted ${DOTTED}`, transform: "translateY(-3px)" }} />
-                  <div style={{ fontFamily: MONO, fontSize: 13, color: negative ? ACCENT : MUTED_AMOUNT }}>
+                  <div style={{ fontFamily: MONO, fontSize: 13, color: negative ? DISCOUNT : MUTED_AMOUNT }}>
                     {formatSigned(line.amount, bill.currency)}
                   </div>
                 </div>
