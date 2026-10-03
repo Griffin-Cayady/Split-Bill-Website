@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { useMediaQuery, isDesktopQuery } from "../../hooks/useMediaQuery";
+import { useMediaQuery, isDesktopQuery, isMobileQuery } from "../../hooks/useMediaQuery";
+import { ResetBillButton } from "./ResetBillButton";
 import { useUIStore } from "../../store/uiStore";
 import { StepNav } from "./StepNav";
 import { StickyBottomBar } from "./StickyBottomBar";
@@ -22,6 +23,7 @@ const STEP_COMPONENTS = {
 export function AppShell() {
   const step = useUIStore((s) => s.step);
   const isDesktop = useMediaQuery(isDesktopQuery);
+  const isMobile = useMediaQuery(isMobileQuery);
   const StepComponent = STEP_COMPONENTS[step];
   const showSplitPanel = isDesktop && step !== "results";
   const mainRef = useRef<HTMLElement>(null);
@@ -45,15 +47,17 @@ export function AppShell() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-6xl flex-col">
-      <header className="flex flex-wrap items-center gap-3.5 px-4 py-5 sm:px-6">
+      <header className="flex flex-wrap items-center gap-3.5 px-4 pt-6 pb-4 sm:px-6">
         <div className="flex items-baseline gap-2.5">
-          <span className="font-display text-headline font-extrabold tracking-tight text-ink">
+          <span className="font-display text-headline font-extrabold tracking-[-0.03em] text-ink">
             Split<span className="text-accent">Easy</span>
           </span>
-          <span className="hidden font-mono text-label font-bold tracking-[0.12em] text-ink-soft uppercase sm:inline">
+          <span className="hidden font-mono text-label font-medium tracking-[0.12em] text-ink-soft uppercase sm:inline">
             split it fair
           </span>
         </div>
+        {/* On phones "Clear bill" sits inside the expanded bill settings instead. */}
+        {!isMobile && <ResetBillButton />}
       </header>
 
       <BillSettingsBar />

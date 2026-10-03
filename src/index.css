@@ -18,6 +18,7 @@
  */
 :root,
 .light {
+  color-scheme: light;
   --paper: #f7f1e6;
   --paper-raised: #fffdf7;
   --ink: #33291c;
@@ -44,6 +45,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --paper: #221b12;
   --paper-raised: #2e2517;
   --ink: #f5ede0;

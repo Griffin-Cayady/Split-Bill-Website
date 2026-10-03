@@ -23,7 +23,7 @@ export function ResetBillButton() {
       <button
         type="button"
         onClick={() => setConfirmOpen(true)}
-        className="ml-auto flex min-h-11 items-center justify-center rounded-xl px-3 text-sm font-bold whitespace-nowrap text-ink-soft transition-colors hover:bg-paper-hover hover:text-accent-hover"
+        className="ml-auto flex min-h-11 items-center justify-center rounded-xl px-3 text-sm font-semibold whitespace-nowrap text-ink-soft transition-[color,background-color,transform] hover:bg-paper-hover hover:text-accent-hover active:scale-[0.97]"
       >
         Clear bill
       </button>
