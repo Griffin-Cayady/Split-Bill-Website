@@ -47,7 +47,7 @@ export function ReconciliationLines({ bill, rec }: { bill: Bill; rec: BillReconc
         )}
       </dl>
 
-      <div className="flex justify-between border-t-2 border-ink pt-4 font-display text-2xl font-extrabold text-ink">
+      <div className="flex items-baseline justify-between gap-3 border-t-2 border-ink pt-4 font-display text-2xl font-extrabold tracking-tight text-ink">
         <span>Grand total</span>
         <span className="tabular-money">{formatMoney(rec.grandTotal, bill.currency)}</span>
       </div>

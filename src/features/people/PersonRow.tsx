@@ -25,7 +25,7 @@ export function PersonRow({ person, position, hasAssignments }: PersonRowProps) 
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-3.5 rounded-2xl border-[1.5px] border-border bg-paper-raised px-3.5 py-3 sm:flex-nowrap">
+    <li className="flex items-center gap-3.5 px-3.5 py-2.5">
       <Avatar name={person.name} color={person.color} />
 
       <input
@@ -35,7 +35,7 @@ export function PersonRow({ person, position, hasAssignments }: PersonRowProps) 
           if (!person.name.trim()) updatePersonName(person.id, lastName.current);
         }}
         aria-label={`Name of person ${position}`}
-        className="min-w-0 flex-1 rounded-lg bg-transparent px-1 py-1.5 text-lg font-bold text-ink hover:bg-paper-hover focus:bg-paper focus:ring-2 focus:ring-accent/60 focus:outline-none"
+        className="min-w-0 flex-1 rounded-lg bg-transparent px-1.5 py-1.5 font-display text-title font-semibold tracking-tight text-ink hover:bg-paper-hover focus:bg-paper focus:ring-2 focus:ring-accent/60 focus:outline-none"
       />
 
       <button
@@ -46,6 +46,6 @@ export function PersonRow({ person, position, hasAssignments }: PersonRowProps) 
       >
         <TrashIcon />
       </button>
-    </div>
+    </li>
   );
 }

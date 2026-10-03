@@ -34,16 +34,16 @@ export function PersonResultCard({ person, result, currency, defaultOpen, payer,
   }
 
   return (
-    <div className="rounded-2xl border-[1.5px] border-border bg-paper-raised">
+    <div className="rounded-2xl border border-border bg-paper-raised shadow-card">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex min-h-14 w-full items-center gap-3.5 px-4 py-4 text-left"
+        className="flex min-h-14 w-full items-center gap-3.5 rounded-2xl px-4 py-4 text-left transition-colors hover:bg-paper-hover/60"
       >
         <Avatar name={person.name} color={person.color} />
         <span className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate text-title font-extrabold text-ink">{person.name.trim() || "Unnamed"}</span>
+          <span className="truncate font-display text-title font-bold tracking-tight text-ink">{person.name.trim() || "Unnamed"}</span>
           {relation && (
             <span className={clsx("flex items-center gap-1 text-sm font-semibold", settled ? "text-teal" : "text-ink-soft")}>
               {settled && <CheckIcon width={14} height={14} aria-hidden="true" />}
@@ -102,7 +102,7 @@ export function PersonResultCard({ person, result, currency, defaultOpen, payer,
               type="button"
               onClick={() => onTogglePaid(person.id)}
               className={clsx(
-                "mt-3.5 min-h-11 rounded-xl border-[1.5px] px-4 text-sm font-bold transition-colors",
+                "mt-3.5 min-h-11 rounded-xl border-[1.5px] px-4 text-sm font-semibold transition-[color,background-color,transform] active:scale-[0.97]",
                 settled ? "border-teal-border bg-teal-soft text-teal" : "border-border bg-transparent text-ink hover:bg-paper-hover",
               )}
             >

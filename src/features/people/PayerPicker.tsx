@@ -22,7 +22,7 @@ export function PayerPicker({ people, payerId }: { people: Person[]; payerId: st
 
   return (
     <div className="flex flex-col gap-2.5">
-      <h2 id="payer-heading" className="text-base font-extrabold text-ink">
+      <h2 id="payer-heading" className="font-display text-title font-bold tracking-tight text-ink">
         Who paid the bill?
       </h2>
       <div ref={groupRef} role="radiogroup" aria-labelledby="payer-heading" onKeyDown={onKeyDown} className="flex flex-wrap gap-2">
@@ -38,7 +38,7 @@ export function PayerPicker({ people, payerId }: { people: Person[]; payerId: st
               data-person={p.id}
               onClick={() => setPayer(p.id)}
               className={clsx(
-                "flex min-h-11 items-center gap-2 rounded-full border-[1.5px] py-1 pr-4 pl-1 text-secondary font-bold transition-colors",
+                "flex min-h-11 items-center gap-2 rounded-full border-[1.5px] py-1 pr-4 pl-1 text-secondary font-semibold transition-[color,background-color,transform] active:scale-[0.97]",
                 selected ? "border-ink bg-ink text-paper" : "border-border bg-paper-raised text-ink hover:bg-paper-hover",
               )}
             >

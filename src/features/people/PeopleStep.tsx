@@ -23,11 +23,11 @@ export function PeopleStep() {
           <p className="text-base text-ink-soft">No one yet — type the first name above and press Add.</p>
         </div>
       ) : (
-        <div className="flex flex-col gap-2.5">
+        <ul className="flex flex-col divide-y divide-dashed divide-border rounded-2xl border border-border bg-paper-raised shadow-card">
           {people.map((p, i) => (
             <PersonRow key={p.id} person={p} position={i + 1} hasAssignments={personHasAssignments(bill, p.id)} />
           ))}
-        </div>
+        </ul>
       )}
 
       {people.length === 1 && <p className="text-sm font-semibold text-amber">Add at least one more person to split the bill.</p>}

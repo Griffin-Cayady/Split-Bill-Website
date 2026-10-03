@@ -53,24 +53,28 @@ export function ResultsStep() {
         </div>
       )}
 
-      <div className="flex flex-col gap-3">
-        {settle.ordered.map(({ person, result: r }) => (
-          <PersonResultCard
-            key={person.id}
-            person={person}
-            result={r}
-            currency={bill.currency}
-            payer={settle.payer}
-            outstanding={settle.outstanding}
-            onTogglePaid={togglePersonPaid}
-          />
-        ))}
-      </div>
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="flex flex-col gap-3">
+          {settle.ordered.map(({ person, result: r }) => (
+            <PersonResultCard
+              key={person.id}
+              person={person}
+              result={r}
+              currency={bill.currency}
+              payer={settle.payer}
+              outstanding={settle.outstanding}
+              onTogglePaid={togglePersonPaid}
+            />
+          ))}
+        </div>
 
-      <ReconciliationLines bill={bill} rec={rec} />
-
-      <div className="pt-1">
-        <ShareActions bill={bill} />
+        {/* The bill's own arithmetic, set as a receipt, with the ways to send it right underneath. */}
+        <aside aria-label="Bill total" className="flex flex-col gap-5 lg:sticky lg:top-6">
+          <div className="torn-edge-bottom rounded-t border border-b-0 border-border bg-paper-raised px-5 pt-5 pb-9 shadow-lift">
+            <ReconciliationLines bill={bill} rec={rec} />
+          </div>
+          <ShareActions bill={bill} />
+        </aside>
       </div>
     </div>
   );
