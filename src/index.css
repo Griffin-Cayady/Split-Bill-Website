@@ -127,8 +127,14 @@
   --shadow-press: 0 1px 2px rgb(var(--shadow-color) / 0.14);
 }
 
-* {
-  border-color: var(--border);
+/* Default edge colour. Kept in the base layer: unlayered, it would beat every
+ * border-* utility (Tailwind v4 utilities live in a cascade layer). */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
 }
 
 html,

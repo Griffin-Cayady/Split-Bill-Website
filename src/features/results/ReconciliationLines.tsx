@@ -5,7 +5,7 @@ import { chargeLabel, type BillReconciliation } from "../../lib/calc";
 import type { Bill } from "../../lib/types";
 
 function signed(amount: number, bill: Bill): string {
-  return `${amount < 0 ? "−" : "+"} ${formatMoney(Math.abs(amount), bill.currency)}`;
+  return `${amount < 0 ? "−" : "+"}${formatMoney(Math.abs(amount), bill.currency)}`;
 }
 
 /**
@@ -29,7 +29,7 @@ export function ReconciliationLines({ bill, rec }: { bill: Bill; rec: BillReconc
         {rec.unassigned > 0 && (
           <div className="flex justify-between gap-3 font-bold text-amber">
             <dt>Not assigned to anyone</dt>
-            <dd className="tabular-money">− {formatMoney(rec.unassigned, bill.currency)}</dd>
+            <dd className="tabular-money">−{formatMoney(rec.unassigned, bill.currency)}</dd>
           </div>
         )}
         {bill.charges.map((charge) => {
