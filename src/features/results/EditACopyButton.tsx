@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "../../components/ui/Button";
 import { ConfirmDialog } from "../../components/ui/ConfirmDialog";
 import { useBillStore } from "../../store/billStore";
+import { acknowledgeResumePrompt } from "../../lib/resumePrompt";
 import type { Bill } from "../../lib/types";
 
 export function EditACopyButton({ bill }: { bill: Bill }) {
@@ -12,6 +13,8 @@ export function EditACopyButton({ bill }: { bill: Bill }) {
 
   function editCopy() {
     loadBill(bill);
+    // The reload must land in the copy, not on a "Resume your previous bill?" prompt.
+    acknowledgeResumePrompt();
     history.replaceState(null, "", window.location.pathname + window.location.search);
     window.location.reload();
   }

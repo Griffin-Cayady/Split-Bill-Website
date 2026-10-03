@@ -3,7 +3,8 @@ import { create } from "zustand";
 export type Step = "people" | "items" | "charges" | "results";
 export const STEPS: Step[] = ["people", "items", "charges", "results"];
 
-export type Toast = { id: string; message: string };
+export type ToastAction = { label: string; onAction: () => void };
+export type Toast = { id: string; message: string; action?: ToastAction };
 
 interface UIStore {
   step: Step;
@@ -12,7 +13,8 @@ interface UIStore {
   goBack: () => void;
 
   toasts: Toast[];
-  pushToast: (message: string) => void;
+  /** Returns the toast id, so callers can dismiss it early. */
+  pushToast: (message: string, action?: ToastAction) => string;
   dismissToast: (id: string) => void;
 }
 
@@ -29,6 +31,10 @@ export const useUIStore = create<UIStore>((set, get) => ({
   },
 
   toasts: [],
-  pushToast: (message) => set((s) => ({ toasts: [...s.toasts, { id: crypto.randomUUID(), message }] })),
+  pushToast: (message, action) => {
+    const id = crypto.randomUUID();
+    set((s) => ({ toasts: [...s.toasts, { id, message, action }] }));
+    return id;
+  },
   dismissToast: (id) => set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) })),
 }));

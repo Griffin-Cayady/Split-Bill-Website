@@ -3,6 +3,7 @@ import { CommitInput } from "../../components/ui/CommitInput";
 import { SegmentedControl } from "../../components/ui/SegmentedControl";
 import { TrashIcon } from "../../components/ui/icons";
 import { useBillStore } from "../../store/billStore";
+import { undoableBillChange } from "../../store/undoableBillChange";
 import { formatMoney, presetForSymbol } from "../../lib/currency";
 import { useMediaQuery, isMobileQuery } from "../../hooks/useMediaQuery";
 import type { Charge } from "../../lib/types";
@@ -15,6 +16,10 @@ export function ChargeRow({ charge, computedAmount }: { charge: Charge; computed
   const isMobile = useMediaQuery(isMobileQuery);
 
   const isDiscount = charge.kind === "discount";
+
+  function remove() {
+    undoableBillChange(`Removed ${charge.label.trim() || (isDiscount ? "discount" : "charge")}`, () => removeCharge(charge.id));
+  }
 
   return (
     <div className="flex flex-col gap-3 rounded-2xl border-[1.5px] border-border bg-paper-raised p-3.5">
@@ -41,7 +46,7 @@ export function ChargeRow({ charge, computedAmount }: { charge: Charge; computed
             <button
               type="button"
               aria-label={`Delete ${charge.label || "charge"}`}
-              onClick={() => removeCharge(charge.id)}
+              onClick={remove}
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-paper-hover hover:text-accent-hover"
             >
               <TrashIcon />
@@ -104,7 +109,7 @@ export function ChargeRow({ charge, computedAmount }: { charge: Charge; computed
           <button
             type="button"
             aria-label={`Delete ${charge.label || "charge"}`}
-            onClick={() => removeCharge(charge.id)}
+            onClick={remove}
             className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-paper-hover hover:text-accent-hover"
           >
             <TrashIcon />

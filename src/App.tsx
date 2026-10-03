@@ -8,8 +8,7 @@ import { useTheme } from "./hooks/useTheme";
 import { useHashRoute } from "./hooks/useHashRoute";
 import { ReadOnlyResults } from "./features/results/ReadOnlyResults";
 import { InvalidLinkNotice } from "./features/results/InvalidLinkNotice";
-
-const RESUME_ACK_KEY = "spliteasy.resume.ack";
+import { acknowledgeResumePrompt, resumePromptAcknowledged } from "./lib/resumePrompt";
 
 function App() {
   useTheme();
@@ -20,7 +19,7 @@ function App() {
 
   useEffect(() => {
     const hasSharedLinkHash = window.location.hash.startsWith("#b=");
-    const alreadyAsked = sessionStorage.getItem(RESUME_ACK_KEY) === "1";
+    const alreadyAsked = resumePromptAcknowledged();
 
     function maybePrompt() {
       const currentBill = useBillStore.getState().bill;
@@ -38,7 +37,7 @@ function App() {
   }, []);
 
   function acknowledge() {
-    sessionStorage.setItem(RESUME_ACK_KEY, "1");
+    acknowledgeResumePrompt();
     setShowResumePrompt(false);
   }
 
@@ -61,6 +60,8 @@ function App() {
         confirmLabel="Resume"
         cancelLabel="Start new"
         onConfirm={acknowledge}
+        // Esc / backdrop keep the saved bill — only the explicit button starts fresh.
+        onDismiss={acknowledge}
         onCancel={() => {
           resetBill();
           acknowledge();
