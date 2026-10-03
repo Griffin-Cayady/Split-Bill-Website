@@ -20,7 +20,7 @@ export function ItemDiscount({ item, compact }: { item: Item; compact?: boolean 
         onClick={() => updateItem(item.id, { discount: { valueType: "percent", value: 0 } })}
         className={clsx(
           "flex min-h-11 shrink-0 items-center gap-1.5 rounded-xl border-[1.5px] border-teal-border bg-teal-soft font-bold text-teal hover:brightness-95",
-          compact ? "px-3 text-xs" : "self-start px-4 text-sm",
+          compact ? "px-3 text-label" : "self-start px-4 text-sm",
         )}
       >
         <PlusIcon width={16} height={16} />
@@ -31,7 +31,7 @@ export function ItemDiscount({ item, compact }: { item: Item; compact?: boolean 
 
   const discount = item.discount;
   const summary = discount.value > 0 && (
-    <span className="font-mono text-xs text-teal">
+    <span className="font-mono text-label text-teal">
       −{formatMoney(itemDiscountAmount(item), currency)} → {formatMoney(itemNetTotal(item), currency)}
     </span>
   );

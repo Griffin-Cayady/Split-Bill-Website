@@ -18,7 +18,7 @@ export function ItemsStep() {
   return (
     <div className="flex flex-col gap-5 pb-16">
       <div>
-        <h1 className="font-display text-[30px] font-extrabold tracking-tight text-ink">What did you order?</h1>
+        <h1 className="font-display text-display font-extrabold tracking-tight text-ink">What did you order?</h1>
         <p className="mt-1.5 text-base text-ink-soft">Add each dish from the receipt, then choose who shared it.</p>
       </div>
 

@@ -12,7 +12,7 @@ export function PeopleStep() {
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <h1 className="font-display text-[30px] font-extrabold tracking-tight text-ink">Who's sharing the bill?</h1>
+        <h1 className="font-display text-display font-extrabold tracking-tight text-ink">Who's sharing the bill?</h1>
         <p className="mt-1.5 text-base text-ink-soft">Add everyone at the table. You'll pick what they had next.</p>
       </div>
 

@@ -40,7 +40,7 @@ export function StickyBottomBar() {
       className="fixed inset-x-0 bottom-0 z-40 border-t border-chrome-line bg-chrome pb-[env(safe-area-inset-bottom)] text-chrome-ink shadow-[0_-6px_20px_rgba(51,41,28,0.18)]"
     >
       {hint && (
-        <div className="border-b border-chrome-line px-4 py-2 text-center text-[13px] font-semibold text-chrome-hint">
+        <div className="border-b border-chrome-line px-4 py-2 text-center text-label font-semibold text-chrome-hint">
           <GateHint hint={hint} hintItemId={hintItemId} issueItemCount={issueItemCount} className="min-h-6" />
         </div>
       )}
@@ -56,7 +56,7 @@ export function StickyBottomBar() {
         )}
         {total !== null && (
           <div className="min-w-0 leading-tight" aria-live="polite">
-            <div className="text-[13px] font-semibold opacity-75">Total so far</div>
+            <div className="text-label font-semibold opacity-75">Total so far</div>
             <div className="tabular-money truncate text-base font-bold">{formatMoney(total, bill.currency)}</div>
           </div>
         )}

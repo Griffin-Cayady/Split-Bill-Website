@@ -92,6 +92,20 @@
   --color-amber: var(--amber);
   --color-amber-soft: var(--amber-soft);
 
+  /* Type roles. 13px is the floor; body is 16px at every width. */
+  --text-display: 1.875rem; /* step headings */
+  --text-display--line-height: 1.15;
+  --text-headline: 1.625rem; /* wordmark, shared-bill title */
+  --text-headline--line-height: 1.2;
+  --text-title: 1.1875rem; /* person names on result cards */
+  --text-title--line-height: 1.3;
+  --text-body-lg: 1.0625rem; /* primary inputs */
+  --text-body-lg--line-height: 1.4;
+  --text-secondary: 0.9375rem; /* receipt lines, breakdowns */
+  --text-secondary--line-height: 1.45;
+  --text-label: 0.8125rem; /* field labels, metadata, badges */
+  --text-label--line-height: 1.35;
+
   --font-display: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
@@ -182,12 +196,6 @@ body::before {
     4% 94%,
     0% 100%
   );
-}
-
-@media (max-width: 1024px) {
-  html {
-    font-size: 15px;
-  }
 }
 
 @keyframes step-in {

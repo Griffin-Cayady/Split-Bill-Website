@@ -10,8 +10,8 @@ export function LiveSummaryPanel() {
   return (
     <div className="torn-edge-bottom sticky top-6 rounded-t border-[1.5px] border-b-0 border-border bg-paper-raised px-5 pt-5 pb-8 shadow-[0_10px_24px_rgba(51,41,28,0.08)]">
       <div className="mb-3 flex items-center justify-between border-b-[1.5px] border-dashed border-border pb-2.5">
-        <h2 className="text-[13px] font-extrabold tracking-wide text-ink uppercase">Live receipt</h2>
-        <span className="font-mono text-[13px] text-ink-soft">
+        <h2 className="text-label font-extrabold tracking-wide text-ink uppercase">Live receipt</h2>
+        <span className="font-mono text-label text-ink-soft">
           {bill.people.length} {bill.people.length === 1 ? "person" : "people"}
         </span>
       </div>
@@ -22,7 +22,7 @@ export function LiveSummaryPanel() {
         ) : (
           <ul className="space-y-1.5">
             {bill.items.map((item) => (
-              <li key={item.id} className="flex justify-between gap-2 text-[15px]">
+              <li key={item.id} className="flex justify-between gap-2 text-secondary">
                 <span className="truncate text-ink">
                   {item.name.trim() || "Unnamed item"}
                   {item.quantity > 1 ? ` ×${item.quantity}` : ""}
@@ -36,7 +36,7 @@ export function LiveSummaryPanel() {
         {(bill.charges.length > 0 || rec.unassigned > 0 || rec.roundingAdjustment !== 0) && (
           <ul className="mt-1.5 space-y-1.5">
             {rec.unassigned > 0 && (
-              <li className="flex justify-between gap-2 text-[15px] font-bold text-amber">
+              <li className="flex justify-between gap-2 text-secondary font-bold text-amber">
                 <span className="truncate">Not assigned yet</span>
                 <span className="tabular-money shrink-0">− {formatMoney(rec.unassigned, bill.currency)}</span>
               </li>
@@ -44,7 +44,7 @@ export function LiveSummaryPanel() {
             {bill.charges.map((c) => {
               const amount = rec.chargeAmounts.find((a) => a.chargeId === c.id)?.amount ?? 0;
               return (
-                <li key={c.id} className={"flex justify-between gap-2 text-[15px] " + (amount < 0 ? "text-teal" : "text-ink-soft")}>
+                <li key={c.id} className={"flex justify-between gap-2 text-secondary " + (amount < 0 ? "text-teal" : "text-ink-soft")}>
                   <span className="truncate">
                     {c.label.trim() || (c.kind === "discount" ? "Discount" : "Extra charge")}
                     {c.valueType === "percent" ? ` ${c.value}%` : ""}
@@ -56,7 +56,7 @@ export function LiveSummaryPanel() {
               );
             })}
             {rec.roundingAdjustment !== 0 && (
-              <li className="flex justify-between gap-2 text-[15px] text-ink-soft">
+              <li className="flex justify-between gap-2 text-secondary text-ink-soft">
                 <span>Rounding</span>
                 <span className="tabular-money shrink-0">
                   {rec.roundingAdjustment < 0 ? "−" : "+"} {formatMoney(Math.abs(rec.roundingAdjustment), bill.currency)}

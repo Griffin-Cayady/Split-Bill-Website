@@ -16,7 +16,7 @@ function signed(amount: number, bill: Bill): string {
 export function ReconciliationLines({ bill, rec }: { bill: Bill; rec: BillReconciliation }) {
   return (
     <div className="flex flex-col gap-2.5">
-      <dl className="flex flex-col gap-1.5 text-[15px]">
+      <dl className="flex flex-col gap-1.5 text-secondary">
         <div className="flex justify-between gap-3">
           <dt className="text-ink-soft">Items</dt>
           <dd className="tabular-money text-ink">{formatMoney(rec.itemsTotal, bill.currency)}</dd>

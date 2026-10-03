@@ -43,7 +43,7 @@ export function PersonResultCard({ person, result, currency, defaultOpen, payer,
       >
         <Avatar name={person.name} color={person.color} />
         <span className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate text-[19px] font-extrabold text-ink">{person.name.trim() || "Unnamed"}</span>
+          <span className="truncate text-title font-extrabold text-ink">{person.name.trim() || "Unnamed"}</span>
           {relation && (
             <span className={clsx("flex items-center gap-1 text-sm font-semibold", settled ? "text-teal" : "text-ink-soft")}>
               {settled && <CheckIcon width={14} height={14} aria-hidden="true" />}
@@ -71,7 +71,7 @@ export function PersonResultCard({ person, result, currency, defaultOpen, payer,
       </button>
 
       {open && (
-        <div className="border-t-[1.5px] border-dashed border-border px-4.5 py-3.5 text-[15px]">
+        <div className="border-t-[1.5px] border-dashed border-border px-4.5 py-3.5 text-secondary">
           {result.itemLines.length > 0 && (
             <ul className="space-y-1.5">
               {result.itemLines.map((line, i) => (

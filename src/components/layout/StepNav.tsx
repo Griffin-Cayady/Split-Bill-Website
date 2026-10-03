@@ -24,13 +24,13 @@ export function StepNav() {
                 onClick={() => setStep(s)}
                 aria-current={active ? "step" : undefined}
                 className={clsx(
-                  "flex min-h-11 w-full items-center justify-center gap-1.5 px-1.5 py-1 font-sans text-[13px] font-bold whitespace-nowrap transition-colors sm:min-h-12 sm:gap-2.5 sm:px-4 sm:text-[15px]",
+                  "flex min-h-11 w-full items-center justify-center gap-1.5 px-1.5 py-1 font-sans text-label font-bold whitespace-nowrap transition-colors sm:min-h-12 sm:gap-2.5 sm:px-4 sm:text-secondary",
                   active ? "bg-accent text-accent-ink" : "text-ink hover:bg-paper-hover",
                 )}
               >
                 <span
                   className={clsx(
-                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[13px] font-extrabold sm:h-8 sm:w-8 sm:text-[15px]",
+                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-label font-extrabold sm:h-8 sm:w-8 sm:text-secondary",
                     active ? "bg-white/25 text-accent-ink" : "bg-paper-hover text-ink-soft",
                   )}
                 >

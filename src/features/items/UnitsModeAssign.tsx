@@ -45,7 +45,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center gap-3">
-        <span className="text-xs font-bold tracking-wide text-ink-soft uppercase">Total pieces</span>
+        <span className="text-label font-bold tracking-wide text-ink-soft uppercase">Total pieces</span>
         <input
           type="number"
           min={0}

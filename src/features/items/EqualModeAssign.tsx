@@ -41,7 +41,7 @@ export function EqualModeAssign({ item }: { item: Item }) {
           </div>
         );
       })}
-      <p className="text-[13px] text-ink-soft">Give everyone who shared it 1. Someone who had a double helping gets 2; 0 leaves them out.</p>
+      <p className="text-label text-ink-soft">Give everyone who shared it 1. Someone who had a double helping gets 2; 0 leaves them out.</p>
     </div>
   );
 }

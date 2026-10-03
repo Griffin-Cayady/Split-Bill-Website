@@ -25,7 +25,7 @@ export function BillSettingsBar() {
         <div className="flex items-center gap-3 rounded-2xl border-[1.5px] border-border bg-paper-raised py-2.5 pr-2.5 pl-4">
           <div className="min-w-0 flex-1">
             <div className="truncate font-display text-lg font-bold text-ink">{bill.title.trim() || "Untitled bill"}</div>
-            <div className="truncate font-mono text-[13px] text-ink-soft">
+            <div className="truncate font-mono text-label text-ink-soft">
               {formatBillDate(bill.dateISO)} · {currentPreset?.code ?? bill.currency.symbol}
             </div>
           </div>
@@ -86,7 +86,7 @@ function SettingsFields() {
   return (
     <>
       <label className="flex min-w-[13rem] flex-[2_1_260px] flex-col gap-1.5">
-        <span className="text-xs font-bold tracking-wide text-ink-soft uppercase">Bill name</span>
+        <span className="text-label font-bold tracking-wide text-ink-soft uppercase">Bill name</span>
         <input
           value={bill.title}
           onChange={(e) => setTitle(e.target.value)}
@@ -95,7 +95,7 @@ function SettingsFields() {
       </label>
 
       <label className="flex flex-[1_1_150px] flex-col gap-1.5">
-        <span className="text-xs font-bold tracking-wide text-ink-soft uppercase">Date</span>
+        <span className="text-label font-bold tracking-wide text-ink-soft uppercase">Date</span>
         <input
           type="date"
           value={bill.dateISO}
@@ -105,7 +105,7 @@ function SettingsFields() {
       </label>
 
       <label className="flex flex-[0_1_140px] flex-col gap-1.5">
-        <span className="text-xs font-bold tracking-wide text-ink-soft uppercase">Currency</span>
+        <span className="text-label font-bold tracking-wide text-ink-soft uppercase">Currency</span>
         <select
           value={currentValue}
           onChange={(e) => {

@@ -17,11 +17,11 @@ export function ReadOnlyResults({ bill }: { bill: Bill }) {
         <span className="font-display text-2xl font-extrabold tracking-tight text-ink">
           Split<span className="text-accent">Easy</span>
         </span>
-        <span className="font-mono text-[11px] tracking-[0.2em] text-ink-soft uppercase">shared result · read only</span>
+        <span className="font-mono text-label tracking-[0.2em] text-ink-soft uppercase">shared result · read only</span>
       </header>
 
       <div>
-        <h1 className="font-display text-[26px] font-extrabold text-ink">{bill.title}</h1>
+        <h1 className="font-display text-headline font-extrabold text-ink">{bill.title}</h1>
         <p className="text-sm text-ink-soft">
           {formatBillDate(bill.dateISO)} {settleUpSentence(settle)}
         </p>

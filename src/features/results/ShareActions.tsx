@@ -6,6 +6,7 @@ import { copyToClipboard } from "../../lib/clipboard";
 import { computeBillResult } from "../../lib/calc";
 import { useUIStore } from "../../store/uiStore";
 import { ReceiptCard } from "./ReceiptCard";
+import { loadReceiptFont } from "../../lib/share/receiptFont";
 import type { Bill } from "../../lib/types";
 
 export function ShareActions({ bill }: { bill: Bill }) {
@@ -18,6 +19,11 @@ export function ShareActions({ bill }: { bill: Bill }) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const frameRef = useRef<HTMLDivElement>(null);
   const [frame, setFrame] = useState({ scale: 1, height: 0 });
+
+  // Start fetching the receipt face as soon as sharing is possible, so the preview renders in it.
+  useEffect(() => {
+    void loadReceiptFont();
+  }, []);
 
   // Fit the fixed 640px receipt to the available width. The scale lives on a
   // wrapper, so the exported image is always rendered at full size.
@@ -124,7 +130,7 @@ export function ShareActions({ bill }: { bill: Bill }) {
       )}
 
       {urlTooLong && (
-        <p className="text-xs text-accent">
+        <p className="text-label text-accent">
           This bill makes a long link (~{Math.round(shareUrl.length / 1000)}k characters) — Download image works more reliably for
           big bills.
         </p>

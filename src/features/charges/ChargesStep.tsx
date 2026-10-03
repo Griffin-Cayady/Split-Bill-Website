@@ -25,7 +25,7 @@ export function ChargesStep() {
   return (
     <div className="flex flex-col gap-5 pb-16">
       <div>
-        <h1 className="font-display text-[30px] font-extrabold tracking-tight text-ink">Tax, tip &amp; discounts</h1>
+        <h1 className="font-display text-display font-extrabold tracking-tight text-ink">Tax, tip &amp; discounts</h1>
         <p className="mt-1.5 text-base text-ink-soft">Copy the extra lines from the bottom of your receipt — or skip this step. Each one is shared in proportion to what people ordered.</p>
       </div>
 
@@ -51,7 +51,7 @@ export function ChargesStep() {
       </button>
 
       {isMobile ? (
-        <div className="flex flex-col gap-2 rounded-2xl border-[1.5px] border-border bg-paper-raised px-4 py-3.5 text-[15px]">
+        <div className="flex flex-col gap-2 rounded-2xl border-[1.5px] border-border bg-paper-raised px-4 py-3.5 text-secondary">
           <div className="flex justify-between text-ink-soft">
             <span>Subtotal</span>
             <span className="tabular-money">{formatMoney(result.billSubtotal, bill.currency)}</span>

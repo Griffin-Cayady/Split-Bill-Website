@@ -35,7 +35,7 @@ export function ResultsStep() {
   return (
     <div className="flex flex-col gap-5 pb-16">
       <div>
-        <h1 className="font-display text-[30px] font-extrabold tracking-tight text-ink">Who owes what</h1>
+        <h1 className="font-display text-display font-extrabold tracking-tight text-ink">Who owes what</h1>
         <p className="mt-1.5 text-base text-ink-soft">{settleUpSentence(settle)} Tap a person to see what their total is made of.</p>
       </div>
 

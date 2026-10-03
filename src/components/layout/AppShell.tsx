@@ -47,10 +47,10 @@ export function AppShell() {
     <div className="mx-auto flex min-h-screen max-w-6xl flex-col">
       <header className="flex flex-wrap items-center gap-3.5 px-4 py-5 sm:px-6">
         <div className="flex items-baseline gap-2.5">
-          <span className="font-display text-[26px] font-extrabold tracking-tight text-ink">
+          <span className="font-display text-headline font-extrabold tracking-tight text-ink">
             Split<span className="text-accent">Easy</span>
           </span>
-          <span className="hidden font-mono text-[12px] font-bold tracking-[0.12em] text-ink-soft uppercase sm:inline">
+          <span className="hidden font-mono text-label font-bold tracking-[0.12em] text-ink-soft uppercase sm:inline">
             split it fair
           </span>
         </div>

@@ -12,7 +12,7 @@ export function Input({ label, error, mono, id, className, ...props }: InputProp
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <label htmlFor={inputId} className="text-xs font-medium uppercase tracking-wide text-ink-soft">
+        <label htmlFor={inputId} className="text-label font-medium uppercase tracking-wide text-ink-soft">
           {label}
         </label>
       )}
@@ -28,7 +28,7 @@ export function Input({ label, error, mono, id, className, ...props }: InputProp
         aria-invalid={Boolean(error)}
         {...props}
       />
-      {error && <span className="text-xs text-accent">{error}</span>}
+      {error && <span className="text-label text-accent">{error}</span>}
     </div>
   );
 }
