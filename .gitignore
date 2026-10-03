@@ -23,3 +23,12 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Local AI tooling and agent skills (not part of the app)
+.agents/
+.claude/
+.impeccable/
+skills-lock.json
+
+# Internal-only documents (product requirements, plans)
+docs/
