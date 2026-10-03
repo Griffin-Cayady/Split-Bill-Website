@@ -14,6 +14,7 @@ export function ShareActions({ bill }: { bill: Bill }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState<"image" | "share" | null>(null);
   const [copied, setCopied] = useState(false);
+  const [showLinkField, setShowLinkField] = useState(false);
 
   const shareUrl = buildShareUrl(bill);
   const urlTooLong = shareUrl.length > SHARE_URL_WARN_LENGTH;
@@ -61,10 +62,11 @@ export function ShareActions({ bill }: { bill: Bill }) {
     const ok = await copyToClipboard(shareUrl);
     if (ok) {
       setCopied(true);
-      pushToast("Link copied ✓");
+      pushToast("Link copied");
       setTimeout(() => setCopied(false), 2500);
     } else {
-      pushToast("Couldn't copy automatically — select and copy the link manually.");
+      setShowLinkField(true);
+      pushToast("Couldn't copy automatically — the link is shown below.");
     }
   }
 
@@ -86,6 +88,18 @@ export function ShareActions({ bill }: { bill: Bill }) {
           Copy link
         </Button>
       </div>
+
+      {showLinkField && (
+        <label className="flex flex-col gap-1.5">
+          <span className="text-sm font-bold text-ink">Share link — select it and copy</span>
+          <input
+            readOnly
+            value={shareUrl}
+            onFocus={(e) => e.currentTarget.select()}
+            className="h-11 rounded-xl border-[1.5px] border-border bg-paper px-3 font-mono text-sm text-ink focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+          />
+        </label>
+      )}
 
       {urlTooLong && (
         <p className="text-xs text-accent">

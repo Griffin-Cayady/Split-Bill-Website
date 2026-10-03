@@ -4,7 +4,7 @@ import { STEPS, useUIStore, type Step } from "../../store/uiStore";
 const STEP_LABELS: Record<Step, string> = {
   people: "People",
   items: "Items",
-  charges: "Extras",
+  charges: "Tax & tip",
   results: "Totals",
 };
 

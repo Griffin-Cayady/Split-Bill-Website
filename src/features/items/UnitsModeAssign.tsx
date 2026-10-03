@@ -70,7 +70,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
               <div key={a.personId} className="flex flex-wrap items-center gap-3 rounded-xl bg-paper px-3 py-2">
                 <Avatar name={person.name} color={person.color} size="sm" />
                 <span className="flex-1 truncate text-base font-bold text-ink">{person.name}</span>
-                <Stepper value={a.units} onChange={(v) => setUnits(a.personId, v)} ariaLabel={`pieces for ${person.name}`} min={0} />
+                <Stepper value={a.units} onChange={(v) => setUnits(a.personId, v)} ariaLabel={`Pieces for ${person.name}`} min={0} />
                 <button
                   type="button"
                   aria-label={`Remove ${person.name} from this item`}
@@ -106,7 +106,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
           {validation.status === "exact" ? <CheckIcon width={16} height={16} /> : <AlertIcon width={16} height={16} />}
           <span>
             {validation.status === "exact"
-              ? `✓ All ${validation.total} pieces assigned`
+              ? `All ${validation.total} pieces assigned`
               : validation.status === "over"
                 ? `Too many — ${validation.assigned} assigned but only ${validation.total} pieces`
                 : `${validation.remaining} of ${validation.total} pieces left to assign`}

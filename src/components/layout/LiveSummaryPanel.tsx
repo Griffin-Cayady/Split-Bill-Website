@@ -24,7 +24,7 @@ export function LiveSummaryPanel() {
             {bill.items.map((item) => (
               <li key={item.id} className="flex justify-between gap-2 text-[15px]">
                 <span className="truncate text-ink">
-                  {item.name || "Untitled item"}
+                  {item.name.trim() || "Unnamed item"}
                   {item.quantity > 1 ? ` ×${item.quantity}` : ""}
                 </span>
                 <span className="tabular-money shrink-0 text-ink">{formatMoney(itemNetTotal(item), bill.currency)}</span>

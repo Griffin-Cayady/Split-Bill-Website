@@ -32,7 +32,7 @@ export function PeopleStep() {
       {people.length === 1 && <p className="text-sm font-semibold text-amber">Add at least one more person to split the bill.</p>}
 
       {people.length >= 2 && payer && (
-        <p className="px-0.5 text-sm text-ink-soft">{payer.name} is treated as the one who paid — others settle up with them.</p>
+        <p className="px-0.5 text-sm text-ink-soft">{payer.name.trim() || "The first person"} paid the bill — everyone else will see what they owe {payer.name.trim() || "them"}.</p>
       )}
     </div>
   );

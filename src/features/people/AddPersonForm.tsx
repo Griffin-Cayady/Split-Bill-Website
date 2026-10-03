@@ -23,7 +23,9 @@ export function AddPersonForm({ count }: { count: number }) {
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder={atCap ? `Max ${SOFT_CAP} people` : "Type a name, e.g. Sam"}
+        placeholder={atCap ? `That's the maximum of ${SOFT_CAP} people` : "Type a name, e.g. Sam"}
+        aria-label="Name of person to add"
+        enterKeyHint="done"
         disabled={atCap}
         className="flex-1 rounded-xl border-[1.5px] border-border bg-paper-raised px-4 text-[17px] text-ink placeholder:text-ink-faint focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none disabled:opacity-50"
         style={{ height: 52 }}

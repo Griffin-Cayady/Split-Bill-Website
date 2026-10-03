@@ -26,12 +26,12 @@ export function ChargesStep() {
     <div className="flex flex-col gap-5 pb-16">
       <div>
         <h1 className="font-display text-[30px] font-extrabold tracking-tight text-ink">Tax, tip &amp; discounts</h1>
-        <p className="mt-1.5 text-base text-ink-soft">Copy the extra lines from the bottom of your receipt — or skip this step.</p>
+        <p className="mt-1.5 text-base text-ink-soft">Copy the extra lines from the bottom of your receipt — or skip this step. Each one is shared in proportion to what people ordered.</p>
       </div>
 
       {bill.charges.length === 0 ? (
         <div className="rounded-2xl border-[1.5px] border-dashed border-border px-6 py-8 text-center">
-          <p className="text-base text-ink-soft">No extras — that's fine. Use the button below if your receipt has tax or a tip.</p>
+          <p className="text-base text-ink-soft">Nothing here yet — skip ahead if your receipt has no tax, service or tip.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-3">

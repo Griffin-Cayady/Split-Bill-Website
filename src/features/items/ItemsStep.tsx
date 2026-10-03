@@ -19,7 +19,7 @@ export function ItemsStep() {
     <div className="flex flex-col gap-5 pb-16">
       <div>
         <h1 className="font-display text-[30px] font-extrabold tracking-tight text-ink">What did you order?</h1>
-        <p className="mt-1.5 text-base text-ink-soft">Add each dish, then tap the people who shared it.</p>
+        <p className="mt-1.5 text-base text-ink-soft">Add each dish from the receipt, then choose who shared it.</p>
       </div>
 
       {items.length === 0 ? (
@@ -40,7 +40,7 @@ export function ItemsStep() {
         className="min-h-[52px] w-full rounded-xl border-[1.5px] border-dashed border-accent bg-accent-soft px-6 text-base font-bold text-accent-hover hover:brightness-95"
       >
         <PlusIcon width={18} height={18} className="mr-1.5 inline align-text-bottom" />
-        Add another item
+        {items.length === 0 ? "Add an item" : "Add another item"}
       </button>
     </div>
   );

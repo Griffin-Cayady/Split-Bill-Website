@@ -72,7 +72,7 @@ export function PersonResultCard({ person, result, currency, defaultOpen, onTogg
                 settled ? "border-teal-border bg-teal-soft text-teal" : "border-border bg-transparent text-ink hover:bg-paper-hover",
               )}
             >
-              {settled ? "Unsettled" : "Mark as settled"}
+              {settled ? "Mark as not settled" : "Mark as settled"}
             </button>
           )}
         </div>

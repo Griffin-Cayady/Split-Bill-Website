@@ -37,11 +37,11 @@ export function EqualModeAssign({ item }: { item: Item }) {
           >
             <Avatar name={p.name} color={p.color} size="sm" />
             <span className={clsx("flex-1 truncate text-base font-bold", included ? "text-ink" : "text-ink-faint")}>{p.name}</span>
-            <Stepper value={quantity} onChange={(v) => setQuantity(p.id, v)} min={0} ariaLabel={`quantity for ${p.name}`} />
+            <Stepper value={quantity} onChange={(v) => setQuantity(p.id, v)} min={0} ariaLabel={`Shares for ${p.name}`} />
           </div>
         );
       })}
-      <p className="text-[13px] text-ink-faint">Set how many each person had — 0 leaves them out.</p>
+      <p className="text-[13px] text-ink-soft">Give everyone who shared it 1. Someone who had a double helping gets 2; 0 leaves them out.</p>
     </div>
   );
 }

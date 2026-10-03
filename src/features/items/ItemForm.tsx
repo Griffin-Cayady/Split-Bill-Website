@@ -19,7 +19,7 @@ export function ItemForm({ item, onDelete }: { item: Item; onDelete: () => void 
         />
         <button
           type="button"
-          aria-label={`Delete ${item.name || "item"}`}
+          aria-label={`Delete ${item.name.trim() || "unnamed item"}`}
           onClick={onDelete}
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-paper-hover hover:text-accent-hover"
         >

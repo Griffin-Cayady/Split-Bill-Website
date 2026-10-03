@@ -195,7 +195,7 @@ export function computeBillResult(bill: Bill): BillResult {
     for (const [personId, share] of shares) {
       if (!personSubtotals.has(personId)) continue; // ignore stale refs to removed people
       personSubtotals.set(personId, (personSubtotals.get(personId) ?? 0) + share);
-      personItemLines.get(personId)!.push({ itemId: item.id, label: item.name, share });
+      personItemLines.get(personId)!.push({ itemId: item.id, label: item.name.trim() || "Unnamed item", share });
     }
   }
 
@@ -211,6 +211,7 @@ export function computeBillResult(bill: Bill): BillResult {
   let chargesTotal = 0;
 
   for (const charge of charges) {
+    const chargeLabel = charge.label.trim() || (charge.kind === "discount" ? "Discount" : "Extra charge");
     const magnitude = charge.valueType === "percent" ? (billSubtotal * charge.value) / 100 : charge.value;
     const chargeAmount = charge.kind === "discount" ? -magnitude : magnitude;
 
@@ -220,14 +221,14 @@ export function computeBillResult(bill: Bill): BillResult {
       const equalShare = people.length > 0 ? chargeAmount / people.length : 0;
       for (const p of people) {
         personChargeTotals.set(p.id, (personChargeTotals.get(p.id) ?? 0) + equalShare);
-        personChargeLines.get(p.id)!.push({ chargeId: charge.id, label: charge.label, share: equalShare });
+        personChargeLines.get(p.id)!.push({ chargeId: charge.id, label: chargeLabel, share: equalShare });
       }
     } else {
       for (const p of people) {
         const personSubtotal = personSubtotals.get(p.id) ?? 0;
         const share = (chargeAmount * personSubtotal) / billSubtotal;
         personChargeTotals.set(p.id, (personChargeTotals.get(p.id) ?? 0) + share);
-        personChargeLines.get(p.id)!.push({ chargeId: charge.id, label: charge.label, share });
+        personChargeLines.get(p.id)!.push({ chargeId: charge.id, label: chargeLabel, share });
       }
     }
   }
