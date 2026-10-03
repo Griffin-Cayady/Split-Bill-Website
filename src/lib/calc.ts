@@ -1,4 +1,4 @@
-import type { Item, Bill, BillResult, PersonResult, BillValidation, BillValidationIssue, UnitsValidation } from "./types";
+import type { Charge, Item, Bill, BillResult, PersonResult, BillValidation, BillValidationIssue, UnitsValidation } from "./types";
 
 const EPSILON = 1e-6;
 
@@ -7,6 +7,11 @@ export function personHasAssignments(bill: Bill, personId: string): boolean {
   return bill.items.some(
     (item) => item.equalPersonIds?.includes(personId) || item.unitAssignments?.some((u) => u.personId === personId),
   );
+}
+
+/** A charge's display label, never blank. */
+export function chargeLabel(charge: Charge): string {
+  return charge.label.trim() || (charge.kind === "discount" ? "Discount" : "Extra charge");
 }
 
 export function itemTotal(item: Item): number {
@@ -211,7 +216,7 @@ export function computeBillResult(bill: Bill): BillResult {
   let chargesTotal = 0;
 
   for (const charge of charges) {
-    const chargeLabel = charge.label.trim() || (charge.kind === "discount" ? "Discount" : "Extra charge");
+    const label = chargeLabel(charge);
     const magnitude = charge.valueType === "percent" ? (billSubtotal * charge.value) / 100 : charge.value;
     const chargeAmount = charge.kind === "discount" ? -magnitude : magnitude;
 
@@ -221,14 +226,14 @@ export function computeBillResult(bill: Bill): BillResult {
       const equalShare = people.length > 0 ? chargeAmount / people.length : 0;
       for (const p of people) {
         personChargeTotals.set(p.id, (personChargeTotals.get(p.id) ?? 0) + equalShare);
-        personChargeLines.get(p.id)!.push({ chargeId: charge.id, label: chargeLabel, share: equalShare });
+        personChargeLines.get(p.id)!.push({ chargeId: charge.id, label, share: equalShare });
       }
     } else {
       for (const p of people) {
         const personSubtotal = personSubtotals.get(p.id) ?? 0;
         const share = (chargeAmount * personSubtotal) / billSubtotal;
         personChargeTotals.set(p.id, (personChargeTotals.get(p.id) ?? 0) + share);
-        personChargeLines.get(p.id)!.push({ chargeId: charge.id, label: chargeLabel, share });
+        personChargeLines.get(p.id)!.push({ chargeId: charge.id, label, share });
       }
     }
   }

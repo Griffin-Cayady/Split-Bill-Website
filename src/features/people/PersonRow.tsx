@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Avatar } from "../../components/ui/Avatar";
 import { TrashIcon } from "../../components/ui/icons";
 import { useBillStore } from "../../store/billStore";
@@ -14,6 +15,8 @@ interface PersonRowProps {
 export function PersonRow({ person, position, hasAssignments }: PersonRowProps) {
   const updatePersonName = useBillStore((s) => s.updatePersonName);
   const removePerson = useBillStore((s) => s.removePerson);
+  const lastName = useRef(person.name.trim() || `Person ${position}`);
+  if (person.name.trim()) lastName.current = person.name.trim();
 
   // Removal is instant but undoable — undo restores their item assignments too — so no confirmation step.
   function remove() {
@@ -28,6 +31,9 @@ export function PersonRow({ person, position, hasAssignments }: PersonRowProps) 
       <input
         value={person.name}
         onChange={(e) => updatePersonName(person.id, e.target.value)}
+        onBlur={() => {
+          if (!person.name.trim()) updatePersonName(person.id, lastName.current);
+        }}
         aria-label={`Name of person ${position}`}
         className="min-w-0 flex-1 rounded-lg bg-transparent px-1 py-1.5 text-lg font-bold text-ink hover:bg-paper-hover focus:bg-paper focus:ring-2 focus:ring-accent/60 focus:outline-none"
       />

@@ -1,5 +1,5 @@
 import { useBillStore } from "../../store/billStore";
-import { computeBillResult, itemNetTotal, reconcileBill } from "../../lib/calc";
+import { chargeLabel, computeBillResult, itemNetTotal, reconcileBill } from "../../lib/calc";
 import { formatMoney } from "../../lib/currency";
 
 export function LiveSummaryPanel() {
@@ -46,7 +46,7 @@ export function LiveSummaryPanel() {
               return (
                 <li key={c.id} className={"flex justify-between gap-2 text-secondary " + (amount < 0 ? "text-teal" : "text-ink-soft")}>
                   <span className="truncate">
-                    {c.label.trim() || (c.kind === "discount" ? "Discount" : "Extra charge")}
+                    {chargeLabel(c)}
                     {c.valueType === "percent" ? ` ${c.value}%` : ""}
                   </span>
                   <span className="tabular-money shrink-0">

@@ -1,3 +1,4 @@
+import { CommitInput } from "./CommitInput";
 import { MinusIcon, PlusIcon } from "./icons";
 
 interface StepperProps {
@@ -29,15 +30,15 @@ export function Stepper({ value, onChange, min = 0, max = Infinity, step = 1, ar
       >
         <MinusIcon width={16} height={16} />
       </button>
-      <input
+      <CommitInput
         type="number"
-        inputMode="decimal"
         aria-label={ariaLabel}
-        value={value}
+        value={String(value)}
         step="any"
-        onChange={(e) => {
-          const v = Number.parseFloat(e.target.value);
-          onChange(Number.isNaN(v) ? min : clamp(v));
+        onCommit={(text) => {
+          // An empty field mid-edit is not a value; leaving it empty restores the last one.
+          const v = Number.parseFloat(text);
+          if (!Number.isNaN(v)) onChange(clamp(v));
         }}
         className="h-11 w-14 rounded-xl border-[1.5px] border-field-border bg-paper-raised text-center font-mono tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
       />

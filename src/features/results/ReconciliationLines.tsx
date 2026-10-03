@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { CheckIcon } from "../../components/ui/icons";
 import { formatMoney } from "../../lib/currency";
-import type { BillReconciliation } from "../../lib/calc";
+import { chargeLabel, type BillReconciliation } from "../../lib/calc";
 import type { Bill } from "../../lib/types";
 
 function signed(amount: number, bill: Bill): string {
@@ -32,7 +32,7 @@ export function ReconciliationLines({ bill, rec }: { bill: Bill; rec: BillReconc
           return (
             <div key={charge.id} className={clsx("flex justify-between gap-3", amount < 0 ? "text-teal" : "text-ink-soft")}>
               <dt className="truncate">
-                {charge.label.trim() || (charge.kind === "discount" ? "Discount" : "Extra charge")}
+                {chargeLabel(charge)}
                 {charge.valueType === "percent" ? ` (${charge.value}%)` : ""}
               </dt>
               <dd className="tabular-money shrink-0">{signed(amount, bill)}</dd>

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useBillStore } from "../../store/billStore";
-import { computeBillResult } from "../../lib/calc";
+import { computeBillResult, reconcileBill } from "../../lib/calc";
 import { formatMoney } from "../../lib/currency";
 import { useMediaQuery, isMobileQuery } from "../../hooks/useMediaQuery";
 import { ChargeRow } from "./ChargeRow";
@@ -12,15 +12,8 @@ export function ChargesStep() {
   const result = computeBillResult(bill);
   const isMobile = useMediaQuery(isMobileQuery);
 
-  function chargeAmount(chargeId: string): number {
-    let total = 0;
-    for (const p of result.perPerson) {
-      for (const line of p.chargeLines) {
-        if (line.chargeId === chargeId) total += line.share;
-      }
-    }
-    return total;
-  }
+  const { chargeAmounts } = reconcileBill(bill, result);
+  const chargeAmount = (chargeId: string) => chargeAmounts.find((c) => c.chargeId === chargeId)?.amount ?? 0;
 
   return (
     <div className="flex flex-col gap-5 pb-16">
