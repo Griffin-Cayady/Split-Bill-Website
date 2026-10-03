@@ -32,3 +32,6 @@ skills-lock.json
 
 # Internal-only documents (product requirements, plans)
 docs/
+
+# Mobile app (kept local, not part of this repo)
+mobile/
