@@ -1,7 +1,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { Avatar } from "../../components/ui/Avatar";
-import { CheckIcon } from "../../components/ui/icons";
+import { CheckIcon, ChevronDownIcon } from "../../components/ui/icons";
 import { formatMoney } from "../../lib/currency";
 import type { Currency, Person, PersonResult } from "../../lib/types";
 
@@ -54,20 +54,11 @@ export function PersonResultCard({ person, result, currency, defaultOpen, payer,
         <span className={clsx("tabular-money text-xl font-semibold", settled ? "text-ink-soft line-through decoration-1" : "text-ink")}>
           {formatMoney(result.total, currency)}
         </span>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
+        <ChevronDownIcon
+          width={16}
+          height={16}
           className={clsx("shrink-0 text-ink-soft transition-transform duration-200", open && "rotate-180")}
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
+        />
       </button>
 
       {open && (
