@@ -44,7 +44,7 @@ export function ChargesStep() {
       </button>
 
       {isMobile ? (
-        <div className="flex flex-col gap-2 rounded-2xl border-[1.5px] border-border bg-paper-raised px-4 py-3.5 text-secondary">
+        <div className="flex flex-col gap-2 rounded-2xl border border-border bg-paper-raised px-4 py-3.5 text-secondary shadow-card">
           <div className="flex justify-between text-ink-soft">
             <span>Subtotal</span>
             <span className="tabular-money">{formatMoney(result.billSubtotal, bill.currency)}</span>
