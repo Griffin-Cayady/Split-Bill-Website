@@ -3,10 +3,13 @@ import { PersonResultCard } from "./PersonResultCard";
 import { ShareActions } from "./ShareActions";
 import { EditACopyButton } from "./EditACopyButton";
 import { ReconciliationLines } from "./ReconciliationLines";
+import { settleUp, settleUpSentence } from "./settleUp";
+import { formatBillDate } from "../../lib/date";
 import type { Bill } from "../../lib/types";
 
 export function ReadOnlyResults({ bill }: { bill: Bill }) {
   const result = computeBillResult(bill);
+  const settle = settleUp(bill, result);
 
   return (
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col gap-5 px-4 py-8 sm:px-6">
@@ -19,17 +22,22 @@ export function ReadOnlyResults({ bill }: { bill: Bill }) {
 
       <div>
         <h1 className="font-display text-[26px] font-extrabold text-ink">{bill.title}</h1>
-        <p className="text-sm text-ink-soft">{bill.dateISO}</p>
+        <p className="text-sm text-ink-soft">
+          {formatBillDate(bill.dateISO)} {settleUpSentence(settle)}
+        </p>
       </div>
 
       <div className="flex flex-col gap-3">
-        {result.perPerson.map((p) => {
-          const person = bill.people.find((person) => person.id === p.personId);
-          if (!person) return null;
-          return (
-            <PersonResultCard key={p.personId} person={person} result={p} currency={bill.currency} />
-          );
-        })}
+        {settle.ordered.map(({ person, result: r }) => (
+          <PersonResultCard
+            key={person.id}
+            person={person}
+            result={r}
+            currency={bill.currency}
+            payer={settle.payer}
+            outstanding={settle.outstanding}
+          />
+        ))}
       </div>
 
       <ReconciliationLines bill={bill} rec={reconcileBill(bill, result)} />

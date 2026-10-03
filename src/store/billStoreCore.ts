@@ -59,6 +59,8 @@ export interface BillStore {
   updatePersonName: (id: string, name: string) => void;
   removePerson: (id: string) => void;
   togglePersonPaid: (id: string) => void;
+  /** Who paid the bill; everyone else settles up with them. */
+  setPayer: (id: string) => void;
 
   addItem: (partial?: Partial<Omit<Item, "id">>) => string;
   addItemAt: (item: Item, index: number) => void;
@@ -97,6 +99,12 @@ export const billStoreInitializer: StateCreator<BillStore, [["zustand/persist", 
   updatePersonName: (id, name) =>
     set((s) => ({
       bill: { ...s.bill, people: s.bill.people.map((p) => (p.id === id ? { ...p, name } : p)) },
+    })),
+
+  setPayer: (id) =>
+    set((s) => ({
+      // The payer has nothing to settle, so clear any stale "settled" flag on them.
+      bill: { ...s.bill, payerId: id, people: s.bill.people.map((p) => (p.id === id && p.paid ? { ...p, paid: false } : p)) },
     })),
 
   togglePersonPaid: (id) =>

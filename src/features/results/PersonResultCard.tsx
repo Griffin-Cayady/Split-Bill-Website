@@ -1,6 +1,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { Avatar } from "../../components/ui/Avatar";
+import { CheckIcon } from "../../components/ui/icons";
 import { formatMoney } from "../../lib/currency";
 import type { Currency, Person, PersonResult } from "../../lib/types";
 
@@ -9,13 +10,28 @@ interface PersonResultCardProps {
   result: PersonResult;
   currency: Currency;
   defaultOpen?: boolean;
+  /** Who paid the bill; omitted when nobody is set. */
+  payer?: Person;
+  /** For the payer's own card: what the others still owe them. */
+  outstanding?: number;
   /** Omit to render read-only (e.g. a shared link view, which has no bill to persist the change to). */
   onTogglePaid?: (personId: string) => void;
 }
 
-export function PersonResultCard({ person, result, currency, defaultOpen, onTogglePaid }: PersonResultCardProps) {
+export function PersonResultCard({ person, result, currency, defaultOpen, payer, outstanding = 0, onTogglePaid }: PersonResultCardProps) {
   const [open, setOpen] = useState(Boolean(defaultOpen));
-  const settled = Boolean(person.paid);
+  const isPayer = payer?.id === person.id;
+  const settled = !isPayer && Boolean(person.paid);
+  const payerName = payer?.name.trim() || "the payer";
+
+  let relation: string | null = null;
+  if (isPayer) {
+    relation = outstanding > 0 ? `paid the bill · gets back ${formatMoney(outstanding, currency)}` : "paid the bill · all settled";
+  } else if (payer && result.total <= 0) {
+    relation = "owes nothing";
+  } else if (payer) {
+    relation = settled ? `paid ${payerName} back` : `owes ${payerName}`;
+  }
 
   return (
     <div className="rounded-2xl border-[1.5px] border-border bg-paper-raised">
@@ -23,17 +39,35 @@ export function PersonResultCard({ person, result, currency, defaultOpen, onTogg
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex min-h-14 w-full flex-wrap items-center gap-3.5 px-4 py-4 text-left"
+        className="flex min-h-14 w-full items-center gap-3.5 px-4 py-4 text-left"
       >
         <Avatar name={person.name} color={person.color} />
-        <span className="text-[19px] font-extrabold text-ink">{person.name}</span>
-        {settled && (
-          <span className="rounded-full bg-teal-soft px-2.5 py-1 font-mono text-[11px] font-extrabold tracking-wide text-teal uppercase">
-            Settled ✓
-          </span>
-        )}
-        <span className="ml-auto font-mono text-xl font-semibold text-ink">{formatMoney(result.total, currency)}</span>
-        <span className="text-sm text-ink-soft">{open ? "▲" : "▼"}</span>
+        <span className="flex min-w-0 flex-1 flex-col">
+          <span className="truncate text-[19px] font-extrabold text-ink">{person.name.trim() || "Unnamed"}</span>
+          {relation && (
+            <span className={clsx("flex items-center gap-1 text-sm font-semibold", settled ? "text-teal" : "text-ink-soft")}>
+              {settled && <CheckIcon width={14} height={14} aria-hidden="true" />}
+              {relation}
+            </span>
+          )}
+        </span>
+        <span className={clsx("tabular-money text-xl font-semibold", settled ? "text-ink-soft line-through decoration-1" : "text-ink")}>
+          {formatMoney(result.total, currency)}
+        </span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+          className={clsx("shrink-0 text-ink-soft transition-transform duration-200", open && "rotate-180")}
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
       </button>
 
       {open && (
@@ -63,7 +97,7 @@ export function PersonResultCard({ person, result, currency, defaultOpen, onTogg
             </ul>
           )}
 
-          {onTogglePaid && (
+          {onTogglePaid && payer && !isPayer && result.total > 0 && (
             <button
               type="button"
               onClick={() => onTogglePaid(person.id)}
@@ -72,7 +106,7 @@ export function PersonResultCard({ person, result, currency, defaultOpen, onTogg
                 settled ? "border-teal-border bg-teal-soft text-teal" : "border-border bg-transparent text-ink hover:bg-paper-hover",
               )}
             >
-              {settled ? "Mark as not settled" : "Mark as settled"}
+              {settled ? `Undo — ${person.name.trim() || "they"} hasn't paid yet` : `Mark as paid back to ${payerName}`}
             </button>
           )}
         </div>

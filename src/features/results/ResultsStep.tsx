@@ -4,6 +4,7 @@ import { formatMoney } from "../../lib/currency";
 import { PersonResultCard } from "./PersonResultCard";
 import { ShareActions } from "./ShareActions";
 import { ReconciliationLines } from "./ReconciliationLines";
+import { settleUp, settleUpSentence } from "./settleUp";
 import { useUIStore } from "../../store/uiStore";
 
 export function ResultsStep() {
@@ -29,16 +30,13 @@ export function ResultsStep() {
   const result = computeBillResult(bill);
   const validation = validateBill(bill);
   const rec = reconcileBill(bill, result);
-  const payerId = bill.payerId ?? bill.people[0]?.id;
-  const nonPayers = bill.people.filter((p) => p.id !== payerId);
-  const settledCount = nonPayers.filter((p) => p.paid).length;
-  const settledText = nonPayers.length > 0 ? `${settledCount} of ${nonPayers.length} people have settled up.` : "";
+  const settle = settleUp(bill, result);
 
   return (
     <div className="flex flex-col gap-5 pb-16">
       <div>
         <h1 className="font-display text-[30px] font-extrabold tracking-tight text-ink">Who owes what</h1>
-        <p className="mt-1.5 text-base text-ink-soft">Tap a card to see the full breakdown. {settledText}</p>
+        <p className="mt-1.5 text-base text-ink-soft">{settleUpSentence(settle)} Tap a person to see what their total is made of.</p>
       </div>
 
       {!validation.valid && (
@@ -56,13 +54,17 @@ export function ResultsStep() {
       )}
 
       <div className="flex flex-col gap-3">
-        {result.perPerson.map((p) => {
-          const person = bill.people.find((person) => person.id === p.personId);
-          if (!person) return null;
-          return (
-            <PersonResultCard key={p.personId} person={person} result={p} currency={bill.currency} onTogglePaid={togglePersonPaid} />
-          );
-        })}
+        {settle.ordered.map(({ person, result: r }) => (
+          <PersonResultCard
+            key={person.id}
+            person={person}
+            result={r}
+            currency={bill.currency}
+            payer={settle.payer}
+            outstanding={settle.outstanding}
+            onTogglePaid={togglePersonPaid}
+          />
+        ))}
       </div>
 
       <ReconciliationLines bill={bill} rec={rec} />

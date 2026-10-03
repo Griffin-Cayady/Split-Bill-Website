@@ -2,6 +2,7 @@ import { useBillStore } from "../../store/billStore";
 import { personHasAssignments } from "../../lib/calc";
 import { AddPersonForm } from "./AddPersonForm";
 import { PersonRow } from "./PersonRow";
+import { PayerPicker } from "./PayerPicker";
 
 export function PeopleStep() {
   const bill = useBillStore((s) => s.bill);
@@ -32,7 +33,9 @@ export function PeopleStep() {
       {people.length === 1 && <p className="text-sm font-semibold text-amber">Add at least one more person to split the bill.</p>}
 
       {people.length >= 2 && payer && (
-        <p className="px-0.5 text-sm text-ink-soft">{payer.name.trim() || "The first person"} paid the bill — everyone else will see what they owe {payer.name.trim() || "them"}.</p>
+        <div className="mt-2 border-t-[1.5px] border-dashed border-border pt-5">
+          <PayerPicker people={people} payerId={payer.id} />
+        </div>
       )}
     </div>
   );

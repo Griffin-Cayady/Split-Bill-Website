@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../../components/ui/Button";
 import { CheckIcon, DownloadIcon, LinkIcon, ShareIcon } from "../../components/ui/icons";
 import { buildShareUrl, SHARE_URL_WARN_LENGTH } from "../../lib/share/link";
@@ -15,6 +15,25 @@ export function ShareActions({ bill }: { bill: Bill }) {
   const [busy, setBusy] = useState<"image" | "share" | null>(null);
   const [copied, setCopied] = useState(false);
   const [showLinkField, setShowLinkField] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [frame, setFrame] = useState({ scale: 1, height: 0 });
+
+  // Fit the fixed 640px receipt to the available width. The scale lives on a
+  // wrapper, so the exported image is always rendered at full size.
+  useEffect(() => {
+    if (!previewOpen || !frameRef.current || !cardRef.current) return;
+    const frameEl = frameRef.current;
+    const cardEl = cardRef.current;
+    const measure = () => {
+      const scale = Math.min(1, frameEl.clientWidth / cardEl.offsetWidth);
+      setFrame({ scale, height: cardEl.offsetHeight * scale });
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(frameEl);
+    observer.observe(cardEl);
+    return () => observer.disconnect();
+  }, [previewOpen]);
 
   const shareUrl = buildShareUrl(bill);
   const urlTooLong = shareUrl.length > SHARE_URL_WARN_LENGTH;
@@ -83,6 +102,9 @@ export function ShareActions({ bill }: { bill: Bill }) {
             {busy === "share" ? "Preparing…" : "Share image"}
           </Button>
         )}
+        <Button variant="secondary" onClick={() => setPreviewOpen((v) => !v)} aria-expanded={previewOpen} aria-controls="receipt-preview">
+          {previewOpen ? "Hide receipt" : "Preview receipt"}
+        </Button>
         <Button variant="secondary" onClick={handleCopyLink}>
           {copied ? <CheckIcon width={18} height={18} /> : <LinkIcon width={18} height={18} />}
           Copy link
@@ -108,8 +130,20 @@ export function ShareActions({ bill }: { bill: Bill }) {
         </p>
       )}
 
-      <div style={{ position: "fixed", left: -9999, top: 0, pointerEvents: "none" }} aria-hidden="true">
-        <ReceiptCard ref={cardRef} bill={bill} result={result} />
+      {/* One receipt element serves both the inline preview and the image export. */}
+      <div
+        id="receipt-preview"
+        ref={frameRef}
+        aria-hidden={!previewOpen}
+        style={
+          previewOpen
+            ? { height: frame.height, overflow: "hidden" }
+            : { position: "fixed", left: -9999, top: 0, pointerEvents: "none" }
+        }
+      >
+        <div style={previewOpen ? { width: 640, transform: `scale(${frame.scale})`, transformOrigin: "top left" } : undefined}>
+          <ReceiptCard ref={cardRef} bill={bill} result={result} />
+        </div>
       </div>
     </div>
   );

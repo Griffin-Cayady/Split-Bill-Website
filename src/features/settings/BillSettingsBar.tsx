@@ -4,12 +4,7 @@ import { CURRENCY_PRESETS } from "../../lib/currency";
 import { ResetBillButton } from "../../components/layout/ResetBillButton";
 import { PencilIcon } from "../../components/ui/icons";
 import { useMediaQuery, isMobileQuery } from "../../hooks/useMediaQuery";
-
-function formatBillDate(dateISO: string): string {
-  const [y, m, d] = dateISO.split("-").map(Number);
-  if (!y || !m || !d) return dateISO;
-  return new Date(y, m - 1, d).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
-}
+import { formatBillDate } from "../../lib/date";
 
 /**
  * Bill name, date, currency and "Clear bill". These are set once per bill, so

@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import type { Bill, BillResult, Currency } from "../../lib/types";
 import { formatMoney } from "../../lib/currency";
+import { initials } from "../../lib/id";
 
 interface ReceiptCardProps {
   bill: Bill;
@@ -39,6 +40,7 @@ function longDate(dateISO: string): string {
 type ReceiptLine = { key: string; label: string; amount: number };
 
 export const ReceiptCard = forwardRef<HTMLDivElement, ReceiptCardProps>(function ReceiptCard({ bill, result }, ref) {
+  const payer = bill.people.find((p) => p.id === bill.payerId) ?? bill.people[0];
   return (
     <div
       ref={ref}
@@ -63,6 +65,7 @@ export const ReceiptCard = forwardRef<HTMLDivElement, ReceiptCardProps>(function
         <div style={{ marginTop: 6, fontSize: 13, color: MUTED }}>
           {longDate(bill.dateISO)} · {bill.people.length} {bill.people.length === 1 ? "person" : "people"} ·{" "}
           {formatMoney(result.grandTotal, bill.currency)} total
+          {payer ? ` · paid by ${payer.name.trim() || "Unnamed"}` : ""}
         </div>
       </div>
 
@@ -82,16 +85,16 @@ export const ReceiptCard = forwardRef<HTMLDivElement, ReceiptCardProps>(function
                     width: 26,
                     height: 26,
                     borderRadius: "50%",
-                    background: ACCENT,
+                    background: person.color,
                     color: CARD_BG,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: 12,
-                    fontWeight: 600,
+                    fontSize: 11,
+                    fontWeight: 700,
                   }}
                 >
-                  {person.name.charAt(0).toUpperCase()}
+                  {initials(person.name)}
                 </div>
                 <div style={{ fontSize: 16, fontWeight: 600 }}>{person.name}</div>
               </div>
