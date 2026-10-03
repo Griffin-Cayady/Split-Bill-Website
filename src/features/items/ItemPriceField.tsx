@@ -23,7 +23,7 @@ export function ItemPriceField({ item, className }: { item: Item; className?: st
         value={display}
         onCommit={commitPrice}
         aria-label="Price"
-        className="h-12 min-w-0 flex-1 rounded-xl border-[1.5px] border-border bg-paper px-2.5 text-right font-mono text-[17px] tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+        className="h-12 min-w-0 flex-1 rounded-xl border-[1.5px] border-field-border bg-paper px-2.5 text-right font-mono text-[17px] tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
       />
     </div>
   );

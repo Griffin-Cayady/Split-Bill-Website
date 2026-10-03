@@ -134,7 +134,7 @@ function DiscountValueField({
       onCommit={commit}
       aria-label="Discount value"
       className={clsx(
-        "rounded-lg border-[1.5px] border-teal-border bg-paper-raised px-2 text-right font-mono tabular-nums text-teal focus:border-teal focus:outline-none",
+        "rounded-lg border-[1.5px] border-teal-border bg-paper-raised px-2 text-right font-mono tabular-nums text-teal focus:border-teal focus:ring-2 focus:ring-teal/60 focus:outline-none",
         className,
       )}
     />

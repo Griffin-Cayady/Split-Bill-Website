@@ -17,7 +17,7 @@ export function ItemFormMobile({ item, onDelete }: { item: Item; onDelete: () =>
           onChange={(e) => updateItem(item.id, { name: e.target.value })}
           placeholder="Item name"
           aria-label="Item name"
-          className="h-12 min-w-0 flex-1 rounded-xl border-[1.5px] border-border bg-paper px-3.5 text-[17px] font-semibold text-ink placeholder:text-ink-faint placeholder:font-normal focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+          className="h-12 min-w-0 flex-1 rounded-xl border-[1.5px] border-field-border bg-paper px-3.5 text-[17px] font-semibold text-ink placeholder:text-ink-faint placeholder:font-normal focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
         />
         <button
           type="button"

@@ -39,7 +39,7 @@ export function Stepper({ value, onChange, min = 0, max = Infinity, step = 1, ar
           const v = Number.parseFloat(e.target.value);
           onChange(Number.isNaN(v) ? min : clamp(v));
         }}
-        className="h-11 w-14 rounded-xl border-[1.5px] border-border bg-paper-raised text-center font-mono tabular-nums text-ink focus:border-accent focus:outline-none"
+        className="h-11 w-14 rounded-xl border-[1.5px] border-field-border bg-paper-raised text-center font-mono tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
       />
       <button
         type="button"

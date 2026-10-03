@@ -29,8 +29,7 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
 
   return (
     <div
-      className="animate-pop-in pointer-events-auto flex max-w-full items-center gap-3 rounded-full py-2 pr-2 pl-5 text-sm font-semibold shadow-xl"
-      style={{ background: "#33291c", color: "#fff8ec" }}
+      className="animate-pop-in pointer-events-auto flex max-w-full items-center gap-3 rounded-full bg-chrome py-2 pr-2 pl-5 text-sm font-semibold text-chrome-ink shadow-xl"
     >
       <span className={action ? "truncate" : "py-1 pr-3"}>{message}</span>
       {action && (
@@ -40,7 +39,7 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
             action.onAction();
             onDismiss(id);
           }}
-          className="min-h-9 shrink-0 rounded-full bg-accent px-4 text-sm font-extrabold text-white"
+          className="min-h-9 shrink-0 rounded-full bg-accent px-4 text-sm font-extrabold text-accent-ink"
         >
           {action.label}
         </button>

@@ -37,21 +37,19 @@ export function StickyBottomBar() {
   return (
     <div
       ref={barRef}
-      className="fixed inset-x-0 bottom-0 z-40 pb-[env(safe-area-inset-bottom)] shadow-[0_-6px_20px_rgba(51,41,28,0.18)]"
-      style={{ background: "#33291c" }}
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-chrome-line bg-chrome pb-[env(safe-area-inset-bottom)] text-chrome-ink shadow-[0_-6px_20px_rgba(51,41,28,0.18)]"
     >
       {hint && (
-        <div className="border-b border-[#5a4a34] px-4 py-2 text-center text-[13px] font-semibold" style={{ color: "#e0a030" }}>
+        <div className="border-b border-chrome-line px-4 py-2 text-center text-[13px] font-semibold text-chrome-hint">
           <GateHint hint={hint} hintItemId={hintItemId} issueItemCount={issueItemCount} className="min-h-6" />
         </div>
       )}
-      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3" style={{ color: "#fff8ec" }}>
+      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
         {!isFirst && (
           <button
             type="button"
             onClick={goBack}
-            className="min-h-11 shrink-0 rounded-xl border-[1.5px] px-4 text-sm font-bold"
-            style={{ borderColor: "#5a4a34", color: "#fff8ec" }}
+            className="min-h-11 shrink-0 rounded-xl border-[1.5px] border-chrome-line px-4 text-sm font-bold text-chrome-ink"
           >
             Back
           </button>

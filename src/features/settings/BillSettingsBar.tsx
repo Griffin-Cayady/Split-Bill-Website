@@ -90,7 +90,7 @@ function SettingsFields() {
         <input
           value={bill.title}
           onChange={(e) => setTitle(e.target.value)}
-          className="h-12 rounded-xl border-[1.5px] border-border bg-paper px-3.5 font-display text-lg font-semibold text-ink focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+          className="h-12 rounded-xl border-[1.5px] border-field-border bg-paper px-3.5 font-display text-lg font-semibold text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
         />
       </label>
 
@@ -100,7 +100,7 @@ function SettingsFields() {
           type="date"
           value={bill.dateISO}
           onChange={(e) => setDateISO(e.target.value)}
-          className="h-12 rounded-xl border-[1.5px] border-border bg-paper px-3.5 font-mono text-sm text-ink focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+          className="h-12 rounded-xl border-[1.5px] border-field-border bg-paper px-3.5 font-mono text-sm text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
         />
       </label>
 
@@ -112,7 +112,7 @@ function SettingsFields() {
             const preset = CURRENCY_PRESETS.find((p) => p.code === e.target.value);
             if (preset) setCurrency({ symbol: preset.symbol, roundingUnit: preset.defaultRoundingUnit });
           }}
-          className="h-12 cursor-pointer rounded-xl border-[1.5px] border-border bg-paper px-3.5 text-sm text-ink focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+          className="h-12 cursor-pointer rounded-xl border-[1.5px] border-field-border bg-paper px-3.5 text-sm text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
         >
           {CURRENCY_PRESETS.map((p) => (
             <option key={p.code} value={p.code}>

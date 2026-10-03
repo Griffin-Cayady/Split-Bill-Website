@@ -20,7 +20,7 @@ export function Input({ label, error, mono, id, className, ...props }: InputProp
         id={inputId}
         className={clsx(
           "h-12 rounded-xl border-[1.5px] border-border bg-paper-raised px-3.5 text-ink placeholder:text-ink-faint",
-          "focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20",
+          "focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/60",
           mono && "font-mono tabular-nums",
           error && "border-accent",
           className,

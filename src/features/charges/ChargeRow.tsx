@@ -41,7 +41,7 @@ export function ChargeRow({ charge, computedAmount }: { charge: Charge; computed
               onChange={(e) => updateCharge(charge.id, { label: e.target.value })}
               placeholder="e.g. Tax"
               aria-label="Charge label"
-              className="h-12 min-w-0 flex-1 rounded-xl border-[1.5px] border-border bg-paper px-3.5 text-[16px] font-semibold text-ink placeholder:text-ink-faint placeholder:font-normal focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+              className="h-12 min-w-0 flex-1 rounded-xl border-[1.5px] border-field-border bg-paper px-3.5 text-[16px] font-semibold text-ink placeholder:text-ink-faint placeholder:font-normal focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
             />
             <button
               type="button"
@@ -76,7 +76,7 @@ export function ChargeRow({ charge, computedAmount }: { charge: Charge; computed
             onChange={(e) => updateCharge(charge.id, { label: e.target.value })}
             placeholder="e.g. Tax"
             aria-label="Charge label"
-            className="h-12 min-w-[9rem] flex-[2_1_160px] rounded-xl border-[1.5px] border-border bg-paper px-3.5 text-[16px] font-semibold text-ink placeholder:text-ink-faint placeholder:font-normal focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+            className="h-12 min-w-[9rem] flex-[2_1_160px] rounded-xl border-[1.5px] border-field-border bg-paper px-3.5 text-[16px] font-semibold text-ink placeholder:text-ink-faint placeholder:font-normal focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
           />
 
           <SegmentedControl
@@ -148,7 +148,7 @@ function ChargeValueField({ charge, currencySymbol, className }: { charge: Charg
       onCommit={commit}
       aria-label="Charge value"
       className={clsx(
-        "rounded-xl border-[1.5px] border-border bg-paper px-2.5 text-right font-mono tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none",
+        "rounded-xl border-[1.5px] border-field-border bg-paper px-2.5 text-right font-mono tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none",
         className,
       )}
     />

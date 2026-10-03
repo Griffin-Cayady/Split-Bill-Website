@@ -24,8 +24,8 @@ export function PeopleStep() {
         </div>
       ) : (
         <div className="flex flex-col gap-2.5">
-          {people.map((p) => (
-            <PersonRow key={p.id} person={p} hasAssignments={personHasAssignments(bill, p.id)} />
+          {people.map((p, i) => (
+            <PersonRow key={p.id} person={p} position={i + 1} hasAssignments={personHasAssignments(bill, p.id)} />
           ))}
         </div>
       )}

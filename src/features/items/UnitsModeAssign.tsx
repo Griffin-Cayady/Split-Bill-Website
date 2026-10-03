@@ -54,7 +54,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
           onChange={(e) => setTotalUnits(Number.parseFloat(e.target.value) || 0)}
           placeholder="0"
           aria-label="Total pieces"
-          className="h-11 w-[76px] rounded-xl border-[1.5px] border-border bg-paper px-3 text-center font-mono text-ink focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+          className="h-11 w-[76px] rounded-xl border-[1.5px] border-field-border bg-paper px-3 text-center font-mono text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
         />
         {item.totalUnits ? (
           <span className="font-mono text-sm text-ink-soft">≈ {formatMoney(Math.round(pricePerUnit), bill.currency)} / piece</span>

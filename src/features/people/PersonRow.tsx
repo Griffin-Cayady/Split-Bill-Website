@@ -6,10 +6,12 @@ import type { Person } from "../../lib/types";
 
 interface PersonRowProps {
   person: Person;
+  /** 1-based position, so each name field has a distinct accessible name. */
+  position: number;
   hasAssignments: boolean;
 }
 
-export function PersonRow({ person, hasAssignments }: PersonRowProps) {
+export function PersonRow({ person, position, hasAssignments }: PersonRowProps) {
   const updatePersonName = useBillStore((s) => s.updatePersonName);
   const removePerson = useBillStore((s) => s.removePerson);
 
@@ -26,8 +28,8 @@ export function PersonRow({ person, hasAssignments }: PersonRowProps) {
       <input
         value={person.name}
         onChange={(e) => updatePersonName(person.id, e.target.value)}
-        aria-label="Person name"
-        className="min-w-0 flex-1 rounded-lg bg-transparent px-1 py-1.5 text-lg font-bold text-ink focus:outline-none"
+        aria-label={`Name of person ${position}`}
+        className="min-w-0 flex-1 rounded-lg bg-transparent px-1 py-1.5 text-lg font-bold text-ink hover:bg-paper-hover focus:bg-paper focus:ring-2 focus:ring-accent/60 focus:outline-none"
       />
 
       <button

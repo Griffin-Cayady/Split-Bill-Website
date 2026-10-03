@@ -118,7 +118,7 @@ export function ShareActions({ bill }: { bill: Bill }) {
             readOnly
             value={shareUrl}
             onFocus={(e) => e.currentTarget.select()}
-            className="h-11 rounded-xl border-[1.5px] border-border bg-paper px-3 font-mono text-sm text-ink focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+            className="h-11 rounded-xl border-[1.5px] border-field-border bg-paper px-3 font-mono text-sm text-ink focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
           />
         </label>
       )}
