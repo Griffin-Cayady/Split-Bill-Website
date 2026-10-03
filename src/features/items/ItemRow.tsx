@@ -23,7 +23,7 @@ export function ItemRow({ item, onDelete }: { item: Item; onDelete: () => void }
   return (
     <div
       id={itemElementId(item.id)}
-      className="flex scroll-mt-6 flex-col gap-3.5 rounded-2xl border-[1.5px] border-border bg-paper-raised p-4"
+      className="flex scroll-mt-6 flex-col gap-4 rounded-2xl border border-border bg-paper-raised p-4 shadow-card sm:p-5"
     >
       {isMobile ? (
         <>

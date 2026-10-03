@@ -45,7 +45,7 @@ export function UnitsModeAssign({ item }: { item: Item }) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center gap-3">
-        <span className="text-label font-bold tracking-wide text-ink-soft uppercase">Total pieces</span>
+        <span className="font-mono text-label font-medium tracking-[0.08em] text-ink-soft uppercase">Total pieces</span>
         <input
           type="number"
           min={0}
@@ -62,14 +62,14 @@ export function UnitsModeAssign({ item }: { item: Item }) {
       </div>
 
       {assignments.length > 0 && (
-        <div className="flex flex-col gap-2">
+        <ul className="flex flex-col divide-y divide-dashed divide-border rounded-xl border border-border">
           {assignments.map((a) => {
             const person = people.find((p) => p.id === a.personId);
             if (!person) return null;
             return (
-              <div key={a.personId} className="flex flex-wrap items-center gap-3 rounded-xl bg-paper px-3 py-2">
+              <li key={a.personId} className="flex min-h-14 items-center gap-2 py-1.5 pr-1.5 pl-3">
                 <Avatar name={person.name} color={person.color} size="sm" />
-                <span className="flex-1 truncate text-base font-bold text-ink">{person.name}</span>
+                <span className="min-w-0 flex-1 truncate text-base font-semibold text-ink">{person.name}</span>
                 <Stepper value={a.units} onChange={(v) => setUnits(a.personId, v)} ariaLabel={`Pieces for ${person.name}`} min={0} />
                 <button
                   type="button"
@@ -79,10 +79,10 @@ export function UnitsModeAssign({ item }: { item: Item }) {
                 >
                   <XIcon width={16} height={16} />
                 </button>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       )}
 
       {nonParticipants.length > 0 && (

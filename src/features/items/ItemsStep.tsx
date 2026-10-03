@@ -37,7 +37,7 @@ export function ItemsStep() {
       <button
         type="button"
         onClick={() => addItem()}
-        className="min-h-[52px] w-full rounded-xl border-[1.5px] border-dashed border-accent bg-accent-soft px-6 text-base font-bold text-accent-hover hover:brightness-95"
+        className="min-h-[52px] w-full rounded-2xl border-[1.5px] border-dashed border-field-border px-6 text-base font-semibold text-ink transition-[background-color,border-color,transform] hover:border-ink hover:bg-paper-raised active:scale-[0.99]"
       >
         <PlusIcon width={18} height={18} className="mr-1.5 inline align-text-bottom" />
         {items.length === 0 ? "Add an item" : "Add another item"}

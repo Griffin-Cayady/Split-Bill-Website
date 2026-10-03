@@ -2,10 +2,13 @@ import { useBillStore } from "../../store/billStore";
 import { Stepper } from "../../components/ui/Stepper";
 import { ItemPriceField } from "./ItemPriceField";
 import { TrashIcon } from "../../components/ui/icons";
+import { itemNetTotal } from "../../lib/calc";
+import { formatMoney } from "../../lib/currency";
 import type { Item } from "../../lib/types";
 
 export function ItemForm({ item, onDelete }: { item: Item; onDelete: () => void }) {
   const updateItem = useBillStore((s) => s.updateItem);
+  const currency = useBillStore((s) => s.bill.currency);
 
   return (
     <div className="flex flex-1 flex-col gap-2.5">
@@ -15,8 +18,11 @@ export function ItemForm({ item, onDelete }: { item: Item; onDelete: () => void 
           onChange={(e) => updateItem(item.id, { name: e.target.value })}
           placeholder="Item name"
           aria-label="Item name"
-          className="h-12 min-w-0 flex-1 rounded-xl border-[1.5px] border-field-border bg-paper px-3.5 text-body-lg font-semibold text-ink placeholder:text-ink-faint placeholder:font-normal focus:border-accent focus:ring-2 focus:ring-accent/60 focus:outline-none"
+          className="h-12 min-w-0 flex-1 border-0 border-b-[1.5px] border-field-border bg-transparent px-0.5 font-display text-title font-semibold tracking-tight text-ink transition-colors placeholder:font-sans placeholder:font-normal placeholder:text-ink-faint hover:border-ink focus:border-accent focus:shadow-[0_1.5px_0_0_var(--accent)] focus:outline-none"
         />
+        {item.price > 0 && (
+          <span className="tabular-money shrink-0 pl-2 text-body-lg font-semibold text-ink">{formatMoney(itemNetTotal(item), currency)}</span>
+        )}
         <button
           type="button"
           aria-label={`Delete ${item.name.trim() || "unnamed item"}`}

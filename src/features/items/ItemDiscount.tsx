@@ -19,12 +19,12 @@ export function ItemDiscount({ item, compact }: { item: Item; compact?: boolean 
         type="button"
         onClick={() => updateItem(item.id, { discount: { valueType: "percent", value: 0 } })}
         className={clsx(
-          "flex min-h-11 shrink-0 items-center gap-1.5 rounded-xl border-[1.5px] border-teal-border bg-teal-soft font-bold text-teal hover:brightness-95",
-          compact ? "px-3 text-label" : "self-start px-4 text-sm",
+          "flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg font-semibold text-teal transition-colors hover:bg-teal-soft",
+          compact ? "px-2 text-sm" : "-ml-2 self-start px-2 text-sm",
         )}
       >
         <PlusIcon width={16} height={16} />
-        {compact ? "Discount" : "Add discount for this item"}
+        {compact ? "Discount" : "Add a discount"}
       </button>
     );
   }
