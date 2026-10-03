@@ -6,6 +6,7 @@ import { AssignmentModeControl } from "./AssignmentModeControl";
 import { EqualModeAssign } from "./EqualModeAssign";
 import { UnitsModeAssign } from "./UnitsModeAssign";
 import { useMediaQuery, isMobileQuery } from "../../hooks/useMediaQuery";
+import { itemElementId } from "./jumpToItem";
 import type { AssignmentMode, Item } from "../../lib/types";
 
 const MODE_COMPONENT: Record<AssignmentMode, (props: { item: Item }) => ReactElement> = {
@@ -20,7 +21,10 @@ export function ItemRow({ item, onDelete }: { item: Item; onDelete: () => void }
   const ModeAssign = MODE_COMPONENT[item.mode] ?? EqualModeAssign;
 
   return (
-    <div className="flex flex-col gap-3.5 rounded-2xl border-[1.5px] border-border bg-paper-raised p-4">
+    <div
+      id={itemElementId(item.id)}
+      className="flex scroll-mt-6 flex-col gap-3.5 rounded-2xl border-[1.5px] border-border bg-paper-raised p-4"
+    >
       {isMobile ? (
         <>
           <ItemFormMobile item={item} onDelete={onDelete} />

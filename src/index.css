@@ -211,3 +211,23 @@ body::before {
     animation: none;
   }
 }
+
+/* Briefly rings an element the user was sent to (e.g. the item blocking "Next"). */
+@keyframes attention-flash {
+  0%,
+  60% {
+    box-shadow: 0 0 0 3px var(--amber);
+  }
+  100% {
+    box-shadow: 0 0 0 3px transparent;
+  }
+}
+
+.attention-flash {
+  animation: attention-flash 1.6s ease-out;
+}
+
+/* Headings focused programmatically on step change need no visible ring. */
+h1[tabindex="-1"]:focus {
+  outline: none;
+}

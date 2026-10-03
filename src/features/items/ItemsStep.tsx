@@ -1,9 +1,5 @@
-import { useCallback } from "react";
 import { useBillStore } from "../../store/billStore";
-import { useUndoableDelete } from "../../hooks/useUndoableDelete";
-import { useMediaQuery, isMobileQuery } from "../../hooks/useMediaQuery";
-import { computeBillResult } from "../../lib/calc";
-import { formatMoney } from "../../lib/currency";
+import { undoableBillChange } from "../../store/undoableBillChange";
 import { ItemRow } from "./ItemRow";
 import { PlusIcon } from "../../components/ui/icons";
 import type { Item } from "../../lib/types";
@@ -13,17 +9,10 @@ export function ItemsStep() {
   const items = bill.items;
   const addItem = useBillStore((s) => s.addItem);
   const removeItem = useBillStore((s) => s.removeItem);
-  const addItemAt = useBillStore((s) => s.addItemAt);
-  const isMobile = useMediaQuery(isMobileQuery);
-  const billSubtotal = computeBillResult(bill).billSubtotal;
-
-  const onRestore = useCallback((item: Item, index: number) => addItemAt(item, index), [addItemAt]);
-  const { pending, scheduleDelete, undo } = useUndoableDelete<Item>(onRestore);
 
   function handleDelete(item: Item) {
-    const index = items.findIndex((it) => it.id === item.id);
-    removeItem(item.id);
-    scheduleDelete(item, index);
+    const name = item.name.trim();
+    undoableBillChange(name ? `Deleted "${name}"` : "Deleted item", () => removeItem(item.id));
   }
 
   return (
@@ -53,27 +42,6 @@ export function ItemsStep() {
         <PlusIcon width={18} height={18} className="mr-1.5 inline align-text-bottom" />
         Add another item
       </button>
-
-      {isMobile && items.length > 0 && (
-        <div className="flex items-center justify-between rounded-2xl border-[1.5px] border-border bg-paper-raised px-4 py-3.5">
-          <span className="font-mono text-xs font-bold tracking-wide text-ink-soft uppercase">Subtotal</span>
-          <span className="tabular-money text-lg font-bold text-ink">{formatMoney(billSubtotal, bill.currency)}</span>
-        </div>
-      )}
-
-      {pending && (
-        <div className="fixed inset-x-0 bottom-20 z-50 flex justify-center px-4 lg:bottom-6">
-          <div
-            className="flex items-center gap-3 rounded-full px-5 py-3 text-sm font-semibold shadow-xl"
-            style={{ background: "#33291c", color: "#fff8ec" }}
-          >
-            <span className="truncate">Deleted "{pending.item.name || "item"}"</span>
-            <button type="button" onClick={undo} className="rounded-full bg-accent px-4 py-2 text-sm font-extrabold text-white">
-              Undo
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

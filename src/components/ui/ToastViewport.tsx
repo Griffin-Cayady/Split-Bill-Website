@@ -7,7 +7,7 @@ export function ToastViewport() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 bottom-4 z-[60] flex flex-col items-center gap-2 px-4 sm:bottom-6"
+      className="pointer-events-none fixed inset-x-0 bottom-[calc(var(--bottom-bar-h,0px)+12px)] z-[60] flex flex-col items-center gap-2 px-4 lg:bottom-6"
       aria-live="polite"
       aria-atomic="true"
     >

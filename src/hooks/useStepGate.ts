@@ -26,6 +26,10 @@ export function useStepGate(bill: Bill) {
 
   const currentIssues = issuesForStep(step, validation.issues);
   const hint = currentIssues.length > 0 ? currentIssues[0].message : "";
+  /** The item the hint refers to, so the UI can jump straight to it. */
+  const hintItemId = currentIssues[0]?.itemId;
+  /** Distinct items with issues on this step (for "+2 more"). */
+  const issueItemCount = new Set(currentIssues.map((i) => i.itemId).filter(Boolean)).size;
 
-  return { isFirst, isLast, relevantBlock, goNext, goBack, hint };
+  return { isFirst, isLast, relevantBlock, goNext, goBack, hint, hintItemId, issueItemCount };
 }

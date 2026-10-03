@@ -1,11 +1,12 @@
 import { Button } from "../ui/Button";
+import { GateHint } from "./GateHint";
 import { useStepGate } from "../../hooks/useStepGate";
 import { useBillStore } from "../../store/billStore";
 
 /** Inline Back/hint/Next controls shown at the end of every step's content, on every viewport. */
 export function StepFooterNav() {
   const bill = useBillStore((s) => s.bill);
-  const { isFirst, isLast, relevantBlock, goNext, goBack, hint } = useStepGate(bill);
+  const { isFirst, isLast, relevantBlock, goNext, goBack, hint, hintItemId, issueItemCount } = useStepGate(bill);
 
   if (isLast) return null;
 
@@ -18,7 +19,14 @@ export function StepFooterNav() {
       ) : (
         <span />
       )}
-      {hint && <span className="ml-auto text-right text-sm font-semibold text-amber">{hint}</span>}
+      {hint && (
+        <GateHint
+          hint={hint}
+          hintItemId={hintItemId}
+          issueItemCount={issueItemCount}
+          className="ml-auto text-right text-sm font-semibold text-amber"
+        />
+      )}
       <Button onClick={goNext} disabled={relevantBlock} className={hint ? "" : "ml-auto"}>
         Next →
       </Button>

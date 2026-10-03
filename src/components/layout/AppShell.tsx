@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useMediaQuery, isDesktopQuery } from "../../hooks/useMediaQuery";
 import { useUIStore } from "../../store/uiStore";
 import { StepNav } from "./StepNav";
@@ -23,6 +24,24 @@ export function AppShell() {
   const isDesktop = useMediaQuery(isDesktopQuery);
   const StepComponent = STEP_COMPONENTS[step];
   const showSplitPanel = isDesktop && step !== "results";
+  const mainRef = useRef<HTMLElement>(null);
+  const isFirstRender = useRef(true);
+
+  // On step change, start the new step from the top and move focus to its
+  // heading, so keyboard and screen-reader users land where sighted users look.
+  // Skipped on first render so page load never steals focus.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    window.scrollTo({ top: 0 });
+    const heading = mainRef.current?.querySelector<HTMLHeadingElement>("h1");
+    if (heading) {
+      heading.tabIndex = -1;
+      heading.focus({ preventScroll: true });
+    }
+  }, [step]);
 
   return (
     <div className="mx-auto flex min-h-screen max-w-6xl flex-col">
@@ -40,7 +59,7 @@ export function AppShell() {
       <BillSettingsBar />
       <StepNav />
 
-      <main className="flex-1 px-4 pt-2 pb-28 sm:px-6 lg:pb-10">
+      <main ref={mainRef} className="flex-1 px-4 pt-2 pb-[calc(var(--bottom-bar-h,0px)+24px)] sm:px-6 lg:pb-10">
         {showSplitPanel ? (
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
             <div key={step} className="animate-step-in min-w-0">
