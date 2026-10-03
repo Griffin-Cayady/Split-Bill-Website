@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import clsx from "clsx";
+import { CommitInput } from "../../components/ui/CommitInput";
 import { SegmentedControl } from "../../components/ui/SegmentedControl";
 import { TrashIcon } from "../../components/ui/icons";
 import { useBillStore } from "../../store/billStore";
@@ -120,18 +120,15 @@ function ChargeValueField({ charge, currencySymbol, className }: { charge: Charg
   const preset = presetForSymbol(currencySymbol);
   const isPercent = charge.valueType === "percent";
 
-  function formatFromValue(): string {
-    if (isPercent) return charge.value ? String(charge.value) : "";
-    return charge.value ? String(charge.value / 10 ** preset.decimalDigits) : "";
-  }
+  const display = isPercent
+    ? charge.value
+      ? String(charge.value)
+      : ""
+    : charge.value
+      ? String(charge.value / 10 ** preset.decimalDigits)
+      : "";
 
-  const [text, setText] = useState(formatFromValue);
-
-  useEffect(() => {
-    setText(formatFromValue());
-  }, [charge.value, charge.valueType]);
-
-  function commit() {
+  function commit(text: string) {
     const value = Number.parseFloat(text.replace(",", "."));
     if (Number.isNaN(value)) {
       updateCharge(charge.id, { value: 0 });
@@ -141,13 +138,9 @@ function ChargeValueField({ charge, currencySymbol, className }: { charge: Charg
   }
 
   return (
-    <input
-      value={text}
-      onChange={(e) => setText(e.target.value)}
-      onBlur={commit}
-      onKeyDown={(e) => e.key === "Enter" && commit()}
-      inputMode="decimal"
-      placeholder="0"
+    <CommitInput
+      value={display}
+      onCommit={commit}
       aria-label="Charge value"
       className={clsx(
         "rounded-xl border-[1.5px] border-border bg-paper px-2.5 text-right font-mono tabular-nums text-ink focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none",

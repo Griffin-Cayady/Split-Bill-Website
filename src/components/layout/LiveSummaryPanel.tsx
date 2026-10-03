@@ -1,10 +1,11 @@
 import { useBillStore } from "../../store/billStore";
-import { computeBillResult, itemNetTotal } from "../../lib/calc";
+import { computeBillResult, itemNetTotal, reconcileBill } from "../../lib/calc";
 import { formatMoney } from "../../lib/currency";
 
 export function LiveSummaryPanel() {
   const bill = useBillStore((s) => s.bill);
   const result = computeBillResult(bill);
+  const rec = reconcileBill(bill, result);
 
   return (
     <div className="torn-edge-bottom sticky top-6 rounded-t border-[1.5px] border-b-0 border-border bg-paper-raised px-5 pt-5 pb-8 shadow-[0_10px_24px_rgba(51,41,28,0.08)]">
@@ -32,20 +33,36 @@ export function LiveSummaryPanel() {
           </ul>
         )}
 
-        {bill.charges.length > 0 && (
+        {(bill.charges.length > 0 || rec.unassigned > 0 || rec.roundingAdjustment !== 0) && (
           <ul className="mt-1.5 space-y-1.5">
+            {rec.unassigned > 0 && (
+              <li className="flex justify-between gap-2 text-[15px] font-bold text-amber">
+                <span className="truncate">Not assigned yet</span>
+                <span className="tabular-money shrink-0">− {formatMoney(rec.unassigned, bill.currency)}</span>
+              </li>
+            )}
             {bill.charges.map((c) => {
-              const isDiscount = c.kind === "discount";
+              const amount = rec.chargeAmounts.find((a) => a.chargeId === c.id)?.amount ?? 0;
               return (
-                <li key={c.id} className={"flex justify-between gap-2 text-[15px] " + (isDiscount ? "text-teal" : "text-ink-soft")}>
-                  <span className="truncate">{c.label || "Charge"}</span>
+                <li key={c.id} className={"flex justify-between gap-2 text-[15px] " + (amount < 0 ? "text-teal" : "text-ink-soft")}>
+                  <span className="truncate">
+                    {c.label.trim() || (c.kind === "discount" ? "Discount" : "Extra charge")}
+                    {c.valueType === "percent" ? ` ${c.value}%` : ""}
+                  </span>
                   <span className="tabular-money shrink-0">
-                    {isDiscount ? "−" : "+"}
-                    {c.valueType === "percent" ? `${c.value}%` : formatMoney(c.value, bill.currency)}
+                    {amount < 0 ? "−" : "+"} {formatMoney(Math.abs(amount), bill.currency)}
                   </span>
                 </li>
               );
             })}
+            {rec.roundingAdjustment !== 0 && (
+              <li className="flex justify-between gap-2 text-[15px] text-ink-soft">
+                <span>Rounding</span>
+                <span className="tabular-money shrink-0">
+                  {rec.roundingAdjustment < 0 ? "−" : "+"} {formatMoney(Math.abs(rec.roundingAdjustment), bill.currency)}
+                </span>
+              </li>
+            )}
           </ul>
         )}
       </div>

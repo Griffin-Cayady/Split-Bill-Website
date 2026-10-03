@@ -8,6 +8,7 @@ import {
   itemNetTotal,
   itemTotal,
   personHasAssignments,
+  reconcileBill,
   roundHalfUp,
   validateBill,
   validateUnitsAssignment,
@@ -571,7 +572,7 @@ describe("validateBill", () => {
     expect(v.issues.some((i) => i.level === "error")).toBe(true);
   });
 
-  it("blocks on over-assigned units, warns (non-blocking) on under-assigned units", () => {
+  it("blocks on over-assigned and under-assigned units (unassigned value would silently vanish)", () => {
     const under = baseBill({
       items: [
         {
@@ -586,8 +587,8 @@ describe("validateBill", () => {
       ],
     });
     const underResult = validateBill(under);
-    expect(underResult.valid).toBe(true);
-    expect(underResult.issues.some((i) => i.level === "warning")).toBe(true);
+    expect(underResult.valid).toBe(false);
+    expect(underResult.issues[0].message).toBe(`"x" has 2 of 4 pieces nobody is paying for.`);
 
     const over = baseBill({
       items: [
@@ -617,10 +618,47 @@ describe("validateBill", () => {
     expect(validateBill(bill).valid).toBe(false);
   });
 
+  it("blocks units-mode items with no total pieces or no participants", () => {
+    const noTotal = baseBill({
+      items: [{ id: "1", name: "x", price: 1000, quantity: 1, mode: "units", unitAssignments: [{ personId: "A", units: 1 }] }],
+    });
+    expect(validateBill(noTotal).valid).toBe(false);
+    const nobody = baseBill({ items: [{ id: "1", name: "x", price: 1000, quantity: 1, mode: "units", totalUnits: 4 }] });
+    expect(validateBill(nobody).valid).toBe(false);
+  });
+
+  it("names unnamed items readably instead of printing empty quotes", () => {
+    const bill = baseBill({ items: [{ id: "1", name: "  ", price: 1000, quantity: 1, mode: "equal" }] });
+    expect(validateBill(bill).issues[0].message).toBe("An unnamed item needs at least one person.");
+  });
+
   it("passes for a fully valid bill", () => {
     const bill = baseBill({
       items: [{ id: "1", name: "x", price: 1000, quantity: 1, mode: "equal", equalPersonIds: ["A", "B"] }],
     });
     expect(validateBill(bill).valid).toBe(true);
+  });
+});
+
+describe("reconcileBill", () => {
+  it("reports zero unassigned and ties items + charges + rounding to the grand total", () => {
+    const bill = baseBill({
+      currency: { symbol: "Rp", roundingUnit: 500 },
+      items: [{ id: "1", name: "x", price: 10000, quantity: 1, mode: "equal", equalPersonIds: ["A", "B", "C"] }],
+      charges: [{ id: "c", kind: "charge", label: "Tax", valueType: "percent", value: 11 }],
+    });
+    const r = reconcileBill(bill);
+    expect(r.unassigned).toBe(0);
+    expect(r.itemsTotal).toBe(10000);
+    expect(r.itemsTotal + r.chargesTotal + r.roundingAdjustment).toBe(r.grandTotal);
+  });
+
+  it("surfaces the value of under-assigned units", () => {
+    const bill = baseBill({
+      items: [
+        { id: "1", name: "x", price: 1000, quantity: 1, mode: "units", totalUnits: 4, unitAssignments: [{ personId: "A", units: 2 }] },
+      ],
+    });
+    expect(reconcileBill(bill).unassigned).toBe(500);
   });
 });

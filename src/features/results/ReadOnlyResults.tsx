@@ -1,8 +1,8 @@
-import { computeBillResult } from "../../lib/calc";
-import { formatMoney } from "../../lib/currency";
+import { computeBillResult, reconcileBill } from "../../lib/calc";
 import { PersonResultCard } from "./PersonResultCard";
 import { ShareActions } from "./ShareActions";
 import { EditACopyButton } from "./EditACopyButton";
+import { ReconciliationLines } from "./ReconciliationLines";
 import type { Bill } from "../../lib/types";
 
 export function ReadOnlyResults({ bill }: { bill: Bill }) {
@@ -32,10 +32,7 @@ export function ReadOnlyResults({ bill }: { bill: Bill }) {
         })}
       </div>
 
-      <div className="flex justify-between border-t-2 border-ink pt-4 font-display text-xl font-extrabold text-ink">
-        <span>Grand total</span>
-        <span className="tabular-money">{formatMoney(result.grandTotal, bill.currency)}</span>
-      </div>
+      <ReconciliationLines bill={bill} rec={reconcileBill(bill, result)} />
 
       <div className="pt-1">
         <ShareActions bill={bill} />

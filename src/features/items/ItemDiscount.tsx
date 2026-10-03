@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import clsx from "clsx";
+import { CommitInput } from "../../components/ui/CommitInput";
 import { SegmentedControl } from "../../components/ui/SegmentedControl";
 import { PlusIcon, XIcon } from "../../components/ui/icons";
 import { useBillStore } from "../../store/billStore";
@@ -111,18 +111,15 @@ function DiscountValueField({
   const preset = presetForSymbol(currencySymbol);
   const isPercent = discount.valueType === "percent";
 
-  function formatFromValue(): string {
-    if (isPercent) return discount.value ? String(discount.value) : "";
-    return discount.value ? String(discount.value / 10 ** preset.decimalDigits) : "";
-  }
+  const display = isPercent
+    ? discount.value
+      ? String(discount.value)
+      : ""
+    : discount.value
+      ? String(discount.value / 10 ** preset.decimalDigits)
+      : "";
 
-  const [text, setText] = useState(formatFromValue);
-
-  useEffect(() => {
-    setText(formatFromValue());
-  }, [discount.value, discount.valueType]);
-
-  function commit() {
+  function commit(text: string) {
     const value = Number.parseFloat(text.replace(",", "."));
     if (Number.isNaN(value)) {
       updateItem(item.id, { discount: { ...discount, value: 0 } });
@@ -132,13 +129,9 @@ function DiscountValueField({
   }
 
   return (
-    <input
-      value={text}
-      onChange={(e) => setText(e.target.value)}
-      onBlur={commit}
-      onKeyDown={(e) => e.key === "Enter" && commit()}
-      inputMode="decimal"
-      placeholder="0"
+    <CommitInput
+      value={display}
+      onCommit={commit}
       aria-label="Discount value"
       className={clsx(
         "rounded-lg border-[1.5px] border-teal-border bg-paper-raised px-2 text-right font-mono tabular-nums text-teal focus:border-teal focus:outline-none",

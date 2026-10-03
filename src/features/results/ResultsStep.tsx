@@ -1,8 +1,9 @@
 import { useBillStore } from "../../store/billStore";
-import { computeBillResult, validateBill } from "../../lib/calc";
+import { computeBillResult, reconcileBill, validateBill } from "../../lib/calc";
 import { formatMoney } from "../../lib/currency";
 import { PersonResultCard } from "./PersonResultCard";
 import { ShareActions } from "./ShareActions";
+import { ReconciliationLines } from "./ReconciliationLines";
 import { useUIStore } from "../../store/uiStore";
 
 export function ResultsStep() {
@@ -27,6 +28,7 @@ export function ResultsStep() {
 
   const result = computeBillResult(bill);
   const validation = validateBill(bill);
+  const rec = reconcileBill(bill, result);
   const payerId = bill.payerId ?? bill.people[0]?.id;
   const nonPayers = bill.people.filter((p) => p.id !== payerId);
   const settledCount = nonPayers.filter((p) => p.paid).length;
@@ -40,8 +42,13 @@ export function ResultsStep() {
       </div>
 
       {!validation.valid && (
-        <div className="rounded-xl border-[1.5px] border-accent bg-accent-soft px-3.5 py-2.5 text-sm font-semibold text-accent-hover">
-          Some items still need attention before this total is final.
+        <div
+          role="alert"
+          className="rounded-xl border-[1.5px] border-accent bg-accent-soft px-3.5 py-2.5 text-sm font-semibold text-accent-hover"
+        >
+          {rec.unassigned > 0
+            ? `${formatMoney(rec.unassigned, bill.currency)} of items isn't assigned to anyone yet, so these totals are short.`
+            : "Some items still need attention before these totals are final."}
           <button type="button" onClick={() => setStep("items")} className="ml-1 font-extrabold underline underline-offset-2">
             Review items
           </button>
@@ -58,10 +65,7 @@ export function ResultsStep() {
         })}
       </div>
 
-      <div className="flex justify-between border-t-2 border-ink pt-4 font-display text-2xl font-extrabold text-ink">
-        <span>Grand total</span>
-        <span className="tabular-money">{formatMoney(result.grandTotal, bill.currency)}</span>
-      </div>
+      <ReconciliationLines bill={bill} rec={rec} />
 
       <div className="pt-1">
         <ShareActions bill={bill} />

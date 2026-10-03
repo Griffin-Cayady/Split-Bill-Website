@@ -132,33 +132,36 @@ export function validateBill(bill: Bill): BillValidation {
   }
 
   for (const item of bill.items) {
+    const name = item.name.trim() ? `"${item.name.trim()}"` : "An unnamed item";
     if (item.price <= 0) {
-      issues.push({ level: "error", itemId: item.id, message: `Add a price for "${item.name || "this item"}".` });
+      issues.push({ level: "error", itemId: item.id, message: `${name} needs a price.` });
     }
 
     switch (item.mode) {
       case "equal":
         if (!item.equalPersonIds || item.equalPersonIds.length === 0) {
-          issues.push({
-            level: "error",
-            itemId: item.id,
-            message: `"${item.name}" needs at least one person selected.`,
-          });
+          issues.push({ level: "error", itemId: item.id, message: `${name} needs at least one person.` });
         }
         break;
       case "units": {
         const v = validateUnitsAssignment(item);
-        if (v.status === "over") {
+        if (v.total <= 0) {
+          issues.push({ level: "error", itemId: item.id, message: `${name} needs a total number of pieces.` });
+        } else if ((item.unitAssignments ?? []).length === 0) {
+          issues.push({ level: "error", itemId: item.id, message: `${name} needs at least one person.` });
+        } else if (v.status === "over") {
           issues.push({
             level: "error",
             itemId: item.id,
-            message: `"${item.name}" has more units assigned than exist (${v.assigned}/${v.total}).`,
+            message: `${name} has ${v.assigned} pieces assigned but only ${v.total} exist.`,
           });
         } else if (v.status === "under") {
+          // Blocking, not a warning: unassigned pieces drop out of everyone's
+          // total, so the payer would silently cover the gap.
           issues.push({
-            level: "warning",
+            level: "error",
             itemId: item.id,
-            message: `"${item.name}" has ${v.remaining} unassigned unit(s).`,
+            message: `${name} has ${v.remaining} of ${v.total} pieces nobody is paying for.`,
           });
         }
         break;
@@ -250,4 +253,42 @@ export function computeBillResult(bill: Bill): BillResult {
   const grandTotal = perPerson.reduce((a, p) => a + p.total, 0);
 
   return { perPerson, billSubtotal, chargesTotal, grandTotal };
+}
+
+export type BillReconciliation = {
+  /** Sum of every item's net total — what the receipt lists before extras. */
+  itemsTotal: number;
+  /** Item value assigned to nobody (0 once every item is fully split). */
+  unassigned: number;
+  /** Tax, service, tip and bill-level discounts, as split across people. */
+  chargesTotal: number;
+  /** Each charge's signed amount (discounts negative), in bill order. */
+  chargeAmounts: { chargeId: string; amount: number }[];
+  /** Net effect of rounding each person's total to the currency's rounding unit. */
+  roundingAdjustment: number;
+  grandTotal: number;
+};
+
+/**
+ * Reconciles the per-person split against the receipt, so the UI can show
+ * that everything adds up — or exactly how much is missing. The parts always
+ * satisfy: (itemsTotal − unassigned) + chargesTotal + roundingAdjustment = grandTotal.
+ */
+export function reconcileBill(bill: Bill, result: BillResult = computeBillResult(bill)): BillReconciliation {
+  const itemsTotal = bill.items.reduce((a, item) => a + itemNetTotal(item), 0);
+  const chargeAmounts = bill.charges.map((c) => ({
+    chargeId: c.id,
+    amount: Math.round(
+      result.perPerson.reduce((a, p) => a + (p.chargeLines.find((l) => l.chargeId === c.id)?.share ?? 0), 0),
+    ),
+  }));
+  const chargesTotal = chargeAmounts.reduce((a, c) => a + c.amount, 0);
+  return {
+    itemsTotal,
+    unassigned: Math.max(0, itemsTotal - result.billSubtotal),
+    chargesTotal,
+    chargeAmounts,
+    roundingAdjustment: result.grandTotal - result.billSubtotal - chargesTotal,
+    grandTotal: result.grandTotal,
+  };
 }
